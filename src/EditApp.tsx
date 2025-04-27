@@ -2,17 +2,18 @@ import type { DragEndEvent } from "@dnd-kit/core";
 
 import {
   DndContext,
-  KeyboardSensor,
   MouseSensor,
   TouchSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Map } from "immutable";
 import React from "react";
 
 import DraggableBox from "./components/DraggableBox";
 import DroppableArea from "./components/DroppableArea";
+import InPlaceEdit from "./components/InPlaceEdit";
 
 type position = {
   x: number;
@@ -37,8 +38,7 @@ const EditApp = () => {
       tolerance: 10,
     },
   });
-  const keyboardSensor = useSensor(KeyboardSensor, {});
-  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
+  const sensors = useSensors(mouseSensor, touchSensor);
   const handleDragEnd = (event: DragEndEvent) => {
     const id = event.active.id as string;
 
@@ -51,19 +51,31 @@ const EditApp = () => {
   };
 
   return (
-    <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
+    <DndContext
+      modifiers={[restrictToWindowEdges]}
+      sensors={sensors}
+      onDragEnd={handleDragEnd}
+    >
       <DroppableArea
         className="w-[100vw] h-[100vh] bg-gray-200"
         id="droppable-1"
       >
         <DraggableBox
-          className="bg-white rounded shadow h-[100px] w-[300px]"
+          className="bg-white rounded shadow h-[200px] w-[300px]"
           id="item-1"
           left={itemPositions.get("item-1")!.x}
           top={itemPositions.get("item-1")!.y}
         >
           <h2 className="text-lg font-bold">Item 1</h2>
           <p>Drag me around!</p>
+          <InPlaceEdit
+            className="text-xl"
+            type="text"
+            value="Edit me!"
+            onCancel={() => console.log("cancel")}
+            onDelete={() => console.log("delete")}
+            onSave={(value) => console.log(value)}
+          />
         </DraggableBox>
       </DroppableArea>
     </DndContext>
