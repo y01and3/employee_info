@@ -8,15 +8,12 @@ interface DroppableAreaProps {
 }
 
 const DroppableArea = ({ id, children, className }: DroppableAreaProps) => {
-  const { isOver, setNodeRef } = useDroppable({
+  const { setNodeRef } = useDroppable({
     id: id,
   });
-  const style = {
-    color: isOver ? "green" : undefined,
-  };
 
   return (
-    <div ref={setNodeRef} className={className} style={style}>
+    <div ref={setNodeRef} className={className}>
       {children}
     </div>
   );
