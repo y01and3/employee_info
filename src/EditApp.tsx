@@ -53,18 +53,17 @@ const EditApp = () => {
   return (
     <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
       <DroppableArea
-        className="w-100vw h-100vh bg-gray-200 overflow-hidden"
+        className="w-[100vw] h-[100vh] bg-gray-200"
         id="droppable-1"
       >
         <DraggableBox
+          className="bg-white rounded shadow h-[100px] w-[300px]"
           id="item-1"
           left={itemPositions.get("item-1")!.x}
           top={itemPositions.get("item-1")!.y}
         >
-          <div className="bg-white p-5 rounded shadow">
-            <h2 className="text-lg font-bold">Item 1</h2>
-            <p>Drag me around!</p>
-          </div>
+          <h2 className="text-lg font-bold">Item 1</h2>
+          <p>Drag me around!</p>
         </DraggableBox>
       </DroppableArea>
     </DndContext>
