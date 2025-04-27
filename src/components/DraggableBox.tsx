@@ -39,4 +39,4 @@ const DraggableBox = ({
   );
 };
 
-export default DraggableBox;
+export default React.memo(DraggableBox);
