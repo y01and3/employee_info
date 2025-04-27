@@ -17,9 +17,10 @@ const DraggableBox = ({
   children,
   className,
 }: DraggableBoxProps) => {
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id,
-  });
+  const { attributes, listeners, isDragging, setNodeRef, transform } =
+    useDraggable({
+      id,
+    });
   const style = {
     top,
     left,
@@ -29,7 +30,13 @@ const DraggableBox = ({
   return (
     <div
       ref={setNodeRef}
-      className={`absolute p-5` + " " + className}
+      className={
+        `absolute p-5` +
+        " " +
+        (isDragging ? "cursor-grabbing" : "cursor-grab") +
+        " " +
+        className
+      }
       style={style}
       {...listeners}
       {...attributes}
