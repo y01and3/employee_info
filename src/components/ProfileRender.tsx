@@ -11,14 +11,14 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
   return (
     <div className="w-[100vw] h-[100vh] bg-gray-200">
       <div
-        className="absolute"
+        className="absolute p-[24px]"
         style={{ top: profile.name.top, left: profile.name.left }}
       >
         <h1>{profile.name.context}</h1>
       </div>
 
       <div
-        className="absolute flex flex-row gap-3 max-w-[50vw]"
+        className="absolute flex flex-row gap-3 max-w-[50vw] p-[24px]"
         style={{ top: profile.tag.top, left: profile.tag.left }}
       >
         {profile.tag.context.map((tag) => (
@@ -38,17 +38,17 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute"
+        className="absolute p-[24px]"
         style={{
           top: profile.introduction.top,
           left: profile.introduction.left,
         }}
       >
-        <p>{profile.introduction.context}</p>
+        <p className="w-max-[70vw]">{profile.introduction.context}</p>
       </div>
 
       <div
-        className="absolute"
+        className="absolute p-[24px]"
         style={{ top: profile.social.top, left: profile.social.left }}
       >
         {profile.social.context.map((social) => (
@@ -61,7 +61,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute w-[50vw]"
+        className="absolute w-[50vw] p-[24px]"
         style={{ top: profile.post.top, left: profile.post.left }}
       >
         {profile.post.context
@@ -79,12 +79,12 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
               prev.length > 0
                 ? [...prev, <Divider key={index} />, curr]
                 : [curr],
-            [] as JSX.Element[]
+            [] as JSX.Element[],
           )}
       </div>
 
       <div
-        className="absolute w-[50vw]"
+        className="absolute w-[50vw] p-[24px]"
         style={{ top: profile.resume.top, left: profile.resume.left }}
       >
         {profile.resume.context
@@ -103,7 +103,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
               prev.length > 0
                 ? [...prev, <Divider key={index} />, curr]
                 : [curr],
-            [] as JSX.Element[]
+            [] as JSX.Element[],
           )}
       </div>
     </div>
