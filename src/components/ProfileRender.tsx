@@ -26,17 +26,9 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
             key={tag.text}
             color="secondary"
             startContent={
-              tag.icon.mod === "image" ? (
-                <img
-                  alt={tag.text}
-                  className="w-[16px] h-[16px]"
-                  src={tag.icon.src}
-                />
-              ) : (
-                <span className="ml-1 my-auto" role="img">
-                  {tag.icon.src}
-                </span>
-              )
+              <span className="ml-1 my-auto" role="img">
+                {tag.emoji}
+              </span>
             }
             variant="shadow"
           >
@@ -61,18 +53,9 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       >
         {profile.social.context.map((social) => (
           <Button key={social.link} isIconOnly href={social.link}>
-            {social.icon.mod === "image" && (
-              <img
-                alt={social.link}
-                className="mr-2 w-[24px] h-[24px]"
-                src={social.icon.src}
-              />
-            )}
-            {social.icon.mod === "emoji" && (
-              <span className="m-auto" role="img">
-                {social.icon.src}
-              </span>
-            )}
+            <span className="m-auto" role="img">
+              {social.emoji}
+            </span>
           </Button>
         ))}
       </div>

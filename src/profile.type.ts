@@ -14,12 +14,12 @@ interface Item<T> {
 }
 
 interface Tag {
-  icon: { mod: "emoji" | "image"; src: string };
+  emoji: string;
   text: string;
 }
 
 interface Social {
-  icon: { mod: "emoji" | "image"; src: string };
+  emoji: string;
   link: string;
 }
 
