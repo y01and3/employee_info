@@ -12,8 +12,8 @@ const defaultProfile: Profile = {
     top: 200,
     left: 40,
     context: [
-      { icon: { mod: "emoji", src: "👨‍💻" }, text: "Developer" },
-      { icon: { mod: "emoji", src: "🌍" }, text: "Traveler" },
+      { id: 1, emoji: "👨‍💻", text: "Developer" },
+      { id: 2, emoji: "🌍", text: "Traveler" },
     ],
   },
   introduction: {
@@ -24,18 +24,14 @@ const defaultProfile: Profile = {
   social: {
     top: 500,
     left: 40,
-    context: [
-      {
-        icon: { mod: "emoji", src: "🐦" },
-        link: "https://twitter.com/johndoe",
-      },
-    ],
+    context: [{ id: 1, emoji: "🐦", link: "https://twitter.com/johndoe" }],
   },
   post: {
     top: 700,
     left: 40,
     context: [
       {
+        id: 1,
         title: "My first post",
         description: "This is my first post.",
         date: new Date(),
@@ -48,6 +44,7 @@ const defaultProfile: Profile = {
     left: 50,
     context: [
       {
+        id: 1,
         start: new Date(),
         end: new Date(),
         title: "Software Engineer at XYZ",

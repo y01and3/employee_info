@@ -23,7 +23,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       >
         {profile.tag.context.map((tag) => (
           <Chip
-            key={tag.text}
+            key={tag.id}
             color="secondary"
             startContent={
               <span className="ml-1 my-auto" role="img">
@@ -52,7 +52,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         style={{ top: profile.social.top, left: profile.social.left }}
       >
         {profile.social.context.map((social) => (
-          <Button key={social.link} isIconOnly href={social.link}>
+          <Button key={social.id} isIconOnly href={social.link}>
             <span className="m-auto" role="img">
               {social.emoji}
             </span>
@@ -66,7 +66,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       >
         {profile.post.context
           .map((post) => (
-            <div key={post.title} className="mb-2">
+            <div key={post.id} className="mb-2">
               <h2>{post.title}</h2>
               <p>{post.date.toLocaleDateString()}</p>
               <Divider />
@@ -89,7 +89,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       >
         {profile.resume.context
           .map((experience) => (
-            <div key={experience.title} className="mb-2">
+            <div key={experience.id} className="mb-2">
               <h2>{experience.title}</h2>
               <p>
                 {experience.start.toLocaleDateString()} -{" "}

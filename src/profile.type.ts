@@ -14,16 +14,19 @@ interface Item<T> {
 }
 
 interface Tag {
+  id: number;
   emoji: string;
   text: string;
 }
 
 interface Social {
+  id: number;
   emoji: string;
   link: string;
 }
 
 interface Post {
+  id: number;
   title: string;
   description: string;
   date: Date;
@@ -31,6 +34,7 @@ interface Post {
 }
 
 interface Experience {
+  id: number;
   start: Date;
   end: Date;
   title: string;
