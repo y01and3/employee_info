@@ -29,7 +29,7 @@ const InPlaceEditor = ({
   const [inputValue, setInputValue] = React.useState(value);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setInputValue(e.target.value);
   };
@@ -45,7 +45,7 @@ const InPlaceEditor = ({
             maxWidth: maxWidth,
             maxLines: maxLines,
             wordBreak: type === "text" ? "keep-all" : "break-word",
-            whiteSpace: "pre-line"
+            whiteSpace: "pre-line",
           }}
         >
           {inputValue.replace(/ /g, "\u00A0").replace(/\n$/g, "\n\u00A0")}
