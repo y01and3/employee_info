@@ -25,6 +25,7 @@ const InPlaceEdit = ({
   onCancel,
   onDelete,
 }: InPlaceEditProps) => {
+  const [lastSubmittedValue, setLastSubmittedValue] = React.useState(value);
   const [inputValue, setInputValue] = React.useState(value);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,7 +56,11 @@ const InPlaceEdit = ({
         <button
           className="save-button"
           onClick={() => {
+            if (inputValue === lastSubmittedValue) {
+              return;
+            }
             onSave(inputValue);
+            setLastSubmittedValue(inputValue);
           }}
         >
           <Icon className="my-auto" icon="line-md:confirm" />
