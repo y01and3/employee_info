@@ -77,56 +77,52 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         ))}
       </div>
 
-      {profile.post && (
-        <div
-          className="absolute w-[50vw]"
-          style={{ top: profile.post.top, left: profile.post.left }}
-        >
-          {profile.post.context
-            .map((post) => (
-              <div key={post.title} className="mb-2">
-                <h2>{post.title}</h2>
-                <p>{post.date.toLocaleDateString()}</p>
-                <Divider />
-                <p>{post.description}</p>
-                <a href={post.link}>Read more</a>
-              </div>
-            ))
-            .reduce(
-              (prev, curr, index) =>
-                prev.length > 0
-                  ? [...prev, <Divider key={index} />, curr]
-                  : [curr],
-              [] as JSX.Element[],
-            )}
-        </div>
-      )}
+      <div
+        className="absolute w-[50vw]"
+        style={{ top: profile.post.top, left: profile.post.left }}
+      >
+        {profile.post.context
+          .map((post) => (
+            <div key={post.title} className="mb-2">
+              <h2>{post.title}</h2>
+              <p>{post.date.toLocaleDateString()}</p>
+              <Divider />
+              <p>{post.description}</p>
+              <a href={post.link}>Read more</a>
+            </div>
+          ))
+          .reduce(
+            (prev, curr, index) =>
+              prev.length > 0
+                ? [...prev, <Divider key={index} />, curr]
+                : [curr],
+            [] as JSX.Element[]
+          )}
+      </div>
 
-      {profile.resume && (
-        <div
-          className="absolute w-[50vw]"
-          style={{ top: profile.resume.top, left: profile.resume.left }}
-        >
-          {profile.resume.context
-            .map((experience) => (
-              <div key={experience.title} className="mb-2">
-                <h2>{experience.title}</h2>
-                <p>
-                  {experience.start.toLocaleDateString()} -{" "}
-                  {experience.end.toLocaleDateString()}
-                </p>
-                <Divider />
-              </div>
-            ))
-            .reduce(
-              (prev, curr, index) =>
-                prev.length > 0
-                  ? [...prev, <Divider key={index} />, curr]
-                  : [curr],
-              [] as JSX.Element[],
-            )}
-        </div>
-      )}
+      <div
+        className="absolute w-[50vw]"
+        style={{ top: profile.resume.top, left: profile.resume.left }}
+      >
+        {profile.resume.context
+          .map((experience) => (
+            <div key={experience.title} className="mb-2">
+              <h2>{experience.title}</h2>
+              <p>
+                {experience.start.toLocaleDateString()} -{" "}
+                {experience.end.toLocaleDateString()}
+              </p>
+              <Divider />
+            </div>
+          ))
+          .reduce(
+            (prev, curr, index) =>
+              prev.length > 0
+                ? [...prev, <Divider key={index} />, curr]
+                : [curr],
+            [] as JSX.Element[]
+          )}
+      </div>
     </div>
   );
 };

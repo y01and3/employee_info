@@ -3,8 +3,8 @@ interface Profile {
   tag: Item<Tag[]>;
   introduction: Item<string>;
   social: Item<Social[]>;
-  post?: Item<Post[]>;
-  resume?: Item<Experience[]>;
+  post: Item<Post[]>;
+  resume: Item<Experience[]>;
 }
 
 interface Item<T> {
