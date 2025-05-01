@@ -5,8 +5,8 @@ interface InPlaceEditProps {
   type: "text" | "textarea";
   value: string;
   className?: string;
-  minWidth?: number;
-  maxWidth?: number;
+  minWidth?: number | string;
+  maxWidth?: number | string;
   minLines?: number;
   maxLines?: number;
   onSave?: (value: string) => void;
@@ -20,7 +20,7 @@ const InPlaceEditor = ({
   className,
   minWidth = 100,
   maxWidth = 500,
-  maxLines,
+  maxLines = 10,
   onSave,
   onCancel,
   onDelete,
@@ -28,7 +28,9 @@ const InPlaceEditor = ({
   const [lastSubmittedValue, setLastSubmittedValue] = React.useState(value);
   const [inputValue, setInputValue] = React.useState(value);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setInputValue(e.target.value);
   };
 
@@ -36,21 +38,49 @@ const InPlaceEditor = ({
     <div className="w-fit h-fit flex flex-row ">
       <div className="relative">
         <span
-          className={"inline-block invisible" + " " + className}
-          style={{ minWidth: minWidth, maxWidth: maxWidth, maxLines: maxLines }}
+          className={className}
+          style={{
+            display: type === "text" ? "inline-block" : "block",
+            minWidth: minWidth,
+            maxWidth: maxWidth,
+            maxLines: maxLines,
+            wordBreak: type === "text" ? "keep-all" : "break-word",
+            whiteSpace: "pre-line"
+          }}
         >
-          {inputValue.replace(/ /g, "\u00A0")}
+          {inputValue.replace(/ /g, "\u00A0").replace(/\n$/g, "\n\u00A0")}
         </span>
-        <input
-          className={
-            "border-none bg-transparent outline-0 underline underline-offset-3 absolute top-0 left-0 w-[100%] h-[100%]" +
-            " " +
-            className
-          }
-          type={type}
-          value={inputValue}
-          onChange={handleChange}
-        />
+        {type === "text" && (
+          <input
+            className={
+              "border-none bg-transparent outline-0 underline underline-offset-3 absolute top-0 left-0 w-[100%] h-[100%]" +
+              " " +
+              className
+            }
+            style={{
+              minWidth: minWidth,
+              maxWidth: maxWidth,
+            }}
+            value={inputValue}
+            onChange={handleChange}
+          />
+        )}
+        {type === "textarea" && (
+          <textarea
+            className={
+              "border-none bg-transparent outline-0 underline underline-offset-3 absolute top-0 left-0 w-[100%] h-[100%] break-words resize-none scrollbar-hidden" +
+              " " +
+              className
+            }
+            style={{
+              minWidth: minWidth,
+              maxWidth: maxWidth,
+              maxLines: maxLines,
+            }}
+            value={inputValue}
+            onChange={handleChange}
+          />
+        )}
       </div>
       {onSave && (
         <button
@@ -63,7 +93,7 @@ const InPlaceEditor = ({
             setLastSubmittedValue(inputValue);
           }}
         >
-          <Icon className="my-auto" icon="line-md:confirm" />
+          <Icon className="m-auto" icon="line-md:confirm" />
         </button>
       )}
       {onCancel && (
@@ -73,7 +103,7 @@ const InPlaceEditor = ({
             onCancel();
           }}
         >
-          <Icon className="my-auto" icon="line-md:close" />
+          <Icon className="m-auto" icon="line-md:close" />
         </button>
       )}
       {onDelete && (
@@ -83,7 +113,7 @@ const InPlaceEditor = ({
             onDelete();
           }}
         >
-          <Icon className="text-red-600 mt-auto mb-auto" icon="line-md:trash" />
+          <Icon className="text-red-600 m-auto" icon="line-md:trash" />
         </button>
       )}
     </div>
