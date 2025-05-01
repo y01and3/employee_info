@@ -14,7 +14,7 @@ interface InPlaceEditProps {
   onDelete?: () => void;
 }
 
-const InPlaceEdit = ({
+const InPlaceEditor = ({
   type,
   value,
   className,
@@ -90,4 +90,4 @@ const InPlaceEdit = ({
   );
 };
 
-export default InPlaceEdit;
+export default InPlaceEditor;
