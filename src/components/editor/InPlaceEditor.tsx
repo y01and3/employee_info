@@ -29,7 +29,7 @@ const InPlaceEditor = ({
   const [inputValue, setInputValue] = React.useState(value);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setInputValue(e.target.value);
   };
@@ -47,10 +47,13 @@ const InPlaceEditor = ({
             wordBreak: type === "text" ? "keep-all" : "break-word",
             whiteSpace: "pre-line",
             visibility: "hidden",
-            paddingRight: type === "date" ? "1.5em" : "0",
+            paddingRight: type === "date" ? "1.5rem" : "0",
           }}
         >
-          {inputValue.replace(/ /g, "\u00A0").replace(/\n$/g, "\n\u00A0")}
+          {/* to fit firefox */}
+          {type === "date" && inputValue.replace(/-/g, " / ")}
+          {type !== "date" &&
+            inputValue.replace(/ /g, "\u00A0").replace(/\n$/g, "\n\u00A0")}
         </span>
         {type !== "textarea" && (
           <input
