@@ -1,7 +1,7 @@
 import type { Profile } from "../profile.type";
 import type { JSX } from "react";
 
-import { Button, Chip, Divider } from "@heroui/react";
+import { Button, Chip, Divider, Link } from "@heroui/react";
 
 interface ProfileRenderProps {
   profile: Profile;
@@ -52,7 +52,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         style={{ top: profile.social.top, left: profile.social.left }}
       >
         {profile.social.context.map((social) => (
-          <Button key={social.id} isIconOnly href={social.link}>
+          <Button key={social.id} isIconOnly as={Link} href={social.link}>
             <span className="m-auto" role="img">
               {social.emoji}
             </span>
