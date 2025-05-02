@@ -26,22 +26,9 @@ const defaultProfile: Profile = {
     left: 40,
     context: [{ id: 1, emoji: "🐦", link: "https://twitter.com/johndoe" }],
   },
-  post: {
+  resume: {
     top: 700,
     left: 40,
-    context: [
-      {
-        id: 1,
-        title: "My first post",
-        description: "This is my first post.",
-        date: new Date(),
-        link: "https://example.com/first-post",
-      },
-    ],
-  },
-  resume: {
-    top: 1500,
-    left: 50,
     context: [
       {
         id: 1,

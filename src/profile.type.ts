@@ -3,7 +3,6 @@ interface Profile {
   tag: Item<Tag[]>;
   introduction: Item<string>;
   social: Item<Social[]>;
-  post: Item<Post[]>;
   resume: Item<Experience[]>;
 }
 
@@ -25,14 +24,6 @@ interface Social {
   link: string;
 }
 
-interface Post {
-  id: number;
-  title: string;
-  description: string;
-  date: Date;
-  link: string;
-}
-
 interface Experience {
   id: number;
   start: Date;
@@ -40,4 +31,4 @@ interface Experience {
   title: string;
 }
 
-export type { Profile, Item, Tag, Social, Post, Experience };
+export type { Profile, Item, Tag, Social, Experience };

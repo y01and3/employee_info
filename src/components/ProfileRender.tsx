@@ -62,29 +62,6 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
 
       <div
         className="absolute w-[50vw] p-[24px]"
-        style={{ top: profile.post.top, left: profile.post.left }}
-      >
-        {profile.post.context
-          .map((post) => (
-            <div key={post.id} className="mb-2">
-              <h2>{post.title}</h2>
-              <p>{post.date.toLocaleDateString()}</p>
-              <Divider />
-              <p>{post.description}</p>
-              <a href={post.link}>Read more</a>
-            </div>
-          ))
-          .reduce(
-            (prev, curr, index) =>
-              prev.length > 0
-                ? [...prev, <Divider key={index} />, curr]
-                : [curr],
-            [] as JSX.Element[],
-          )}
-      </div>
-
-      <div
-        className="absolute w-[50vw] p-[24px]"
         style={{ top: profile.resume.top, left: profile.resume.left }}
       >
         {profile.resume.context
