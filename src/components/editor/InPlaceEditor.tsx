@@ -2,7 +2,7 @@ import { Icon } from "@iconify-icon/react";
 import React from "react";
 
 interface InPlaceEditProps {
-  type: "text" | "textarea";
+  type: "text" | "textarea" | "date";
   value: string;
   className?: string;
   minWidth?: number | string;
@@ -40,17 +40,19 @@ const InPlaceEditor = ({
         <span
           className={className}
           style={{
-            display: type === "text" ? "inline-block" : "block",
+            display: type !== "textarea" ? "inline-block" : "block",
             minWidth: minWidth,
             maxWidth: maxWidth,
             maxLines: maxLines,
             wordBreak: type === "text" ? "keep-all" : "break-word",
             whiteSpace: "pre-line",
+            visibility: "hidden",
+            paddingRight: type === "date" ? "1.5em" : "0",
           }}
         >
           {inputValue.replace(/ /g, "\u00A0").replace(/\n$/g, "\n\u00A0")}
         </span>
-        {type === "text" && (
+        {type !== "textarea" && (
           <input
             className={
               "border-none bg-transparent outline-0 underline underline-offset-3 absolute top-0 left-0 w-[100%] h-[100%]" +
@@ -61,6 +63,7 @@ const InPlaceEditor = ({
               minWidth: minWidth,
               maxWidth: maxWidth,
             }}
+            type={type}
             value={inputValue}
             onChange={handleChange}
           />
