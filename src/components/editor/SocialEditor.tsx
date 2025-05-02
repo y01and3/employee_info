@@ -19,7 +19,7 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
   const [isOpen, setIsOpen] = React.useState("");
 
   return (
-    <div className="flex flex-row gap-3">
+    <div className="social">
       {socials.map((social) => (
         <Popover
           key={social.id}

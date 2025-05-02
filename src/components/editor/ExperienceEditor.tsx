@@ -24,7 +24,7 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className="w-max-[50vw] flex flex-col gap-3">
+    <div className="resume">
       {experiences
         .map((experience) => (
           <div key={experience.id}>

@@ -61,14 +61,9 @@ const ProfileEditor = () => {
       onDragEnd={handleDragEnd}
     >
       <DroppableArea id="droppable">
-        <DraggableBox
-          className="border-4 rounded border-dotted border-blue-500"
-          id="name"
-          left={profile.name.left}
-          top={profile.name.top}
-        >
+        <DraggableBox id="name" left={profile.name.left} top={profile.name.top}>
           <InPlaceEditor
-            className="text-xl"
+            className="name"
             type="text"
             value={profile.name.context}
             onSave={(value) =>
@@ -80,12 +75,7 @@ const ProfileEditor = () => {
           />
         </DraggableBox>
 
-        <DraggableBox
-          className="border-4 rounded border-dotted border-blue-500 w-fit h-fit"
-          id="tag"
-          left={profile.tag.left}
-          top={profile.tag.top}
-        >
+        <DraggableBox id="tag" left={profile.tag.left} top={profile.tag.top}>
           <TagsEditor
             tags={profile.tag.context}
             onChange={(tags) =>
@@ -98,12 +88,12 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          className="border-4 rounded border-dotted border-blue-500"
           id="introduction"
           left={profile.introduction.left}
           top={profile.introduction.top}
         >
           <InPlaceEditor
+            className="introduction"
             maxWidth={"70vw"}
             type="textarea"
             value={profile.introduction.context}
@@ -117,7 +107,6 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          className="border-4 rounded border-dotted border-blue-500"
           id="social"
           left={profile.social.left}
           top={profile.social.top}
@@ -134,7 +123,6 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          className="border-4 rounded border-dotted border-blue-500"
           id="resume"
           left={profile.resume.left}
           top={profile.resume.top}

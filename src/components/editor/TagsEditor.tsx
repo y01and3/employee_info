@@ -22,7 +22,7 @@ const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className="flex flex-row gap-3 max-w-[50vw]">
+    <div className="tags">
       {tags.map((tag) => (
         <Chip
           key={tag.id}
@@ -119,4 +119,4 @@ const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
   );
 };
 
-export default React.memo(TagsEditor);
+export default TagsEditor;

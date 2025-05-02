@@ -48,9 +48,10 @@ const EditApp = () => {
   }, []);
 
   return (
-    <div className="relative">
-      <div className="sticky top-5 right-10 z-50">
+    <div className="min-h-screen">
+      <div className="sticky top-0 w-full z-50">
         <Button
+          className="m-5 float-right"
           color="warning"
           onPress={() => {
             changeProfile(profile);

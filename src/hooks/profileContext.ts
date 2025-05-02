@@ -4,37 +4,33 @@ import type { EditProfileAction } from "./editProfileReducer";
 import React from "react";
 
 const defaultProfile: Profile = {
-  name: {
-    top: 100,
-    left: 40,
-    context: "John Doe",
-  },
+  name: { top: 81, left: 315, context: "John Doe" },
   tag: {
-    top: 200,
-    left: 40,
+    top: 211,
+    left: 310,
     context: [
       { id: 1, emoji: "👨‍💻", text: "Developer" },
       { id: 2, emoji: "🌍", text: "Traveler" },
     ],
   },
   introduction: {
-    top: 300,
-    left: 40,
+    top: 283,
+    left: 310,
     context: "Hello, I am John Doe, a software developer.",
   },
   social: {
-    top: 500,
-    left: 40,
-    context: [{ id: 1, emoji: "🐦", link: "https://twitter.com/johndoe" }],
+    top: 352,
+    left: 701,
+    context: [{ id: 1, emoji: "🤖", link: "https://example.com/" }],
   },
   resume: {
-    top: 700,
-    left: 40,
+    top: 490,
+    left: 327,
     context: [
       {
         id: 1,
-        start: Date.now(),
-        end: Date.now(),
+        start: 1746177984868,
+        end: 1746177984868,
         title: "Software Engineer at XYZ",
       },
     ],

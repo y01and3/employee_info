@@ -31,11 +31,11 @@ const DraggableBox = ({
     <div
       ref={setNodeRef}
       className={
-        `absolute p-5` +
+        `draggable absolute p-5` +
         " " +
         (isDragging ? "cursor-grabbing" : "cursor-grab") +
         " " +
-        className
+        (className ? className : "")
       }
       style={style}
       {...listeners}

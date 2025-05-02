@@ -14,11 +14,11 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         className="absolute p-[24px]"
         style={{ top: profile.name.top, left: profile.name.left }}
       >
-        <h1>{profile.name.context}</h1>
+        <h1 className="name">{profile.name.context}</h1>
       </div>
 
       <div
-        className="absolute flex flex-row gap-3 max-w-[50vw] p-[24px]"
+        className="absolute p-[24px] tags"
         style={{ top: profile.tag.top, left: profile.tag.left }}
       >
         {profile.tag.context.map((tag) => (
@@ -44,11 +44,11 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
           left: profile.introduction.left,
         }}
       >
-        <p className="w-max-[70vw]">{profile.introduction.context}</p>
+        <p className="introduction">{profile.introduction.context}</p>
       </div>
 
       <div
-        className="absolute p-[24px] flex flex-row gap-3"
+        className="absolute p-[24px] social"
         style={{ top: profile.social.top, left: profile.social.left }}
       >
         {profile.social.context.map((social) => (
@@ -61,14 +61,14 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute w-[50vw] p-[24px] flex flex-col gap-3"
+        className="absolute p-[24px] resume"
         style={{ top: profile.resume.top, left: profile.resume.left }}
       >
         {profile.resume.context
           .map((experience) => (
             <div key={experience.id}>
-              <h2>{experience.title}</h2>
-              <p>
+              <h2 className="resume-title">{experience.title}</h2>
+              <p className="resume-date">
                 {new Date(experience.start).toLocaleDateString()} -{" "}
                 {new Date(experience.end).toLocaleDateString()}
               </p>
