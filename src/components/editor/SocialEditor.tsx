@@ -1,3 +1,5 @@
+import type { Social } from "../../profile.type";
+
 import {
   Button,
   Input,
@@ -5,10 +7,8 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@heroui/react";
-import type { Social } from "../../profile.type";
-
-import React from "react";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import React from "react";
 
 interface SocialEditorProps {
   socials: Social[];
@@ -17,6 +17,7 @@ interface SocialEditorProps {
 
 const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
   const [isOpen, setIsOpen] = React.useState("");
+
   return (
     <div className="flex flex-row gap-3">
       {socials.map((social) => (
@@ -56,7 +57,7 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
                             emoji: formData.get("emoji") as string,
                             link: formData.get("link") as string,
                           }
-                        : s
+                        : s,
                     );
 
                     onChange(newSocials);
@@ -73,10 +74,10 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
                   />
                   <Input
                     defaultValue={social.link}
-                    type="url"
                     label="Link"
                     name="link"
                     size="sm"
+                    type="url"
                     variant="bordered"
                   />
                   <Button className="w-full mt-2" type="submit" variant="flat">
@@ -137,10 +138,10 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
                   variant="bordered"
                 />
                 <Input
-                  type="url"
                   label="Link"
                   name="link"
                   size="sm"
+                  type="url"
                   variant="bordered"
                 />
                 <Button className="w-full mt-2" type="submit" variant="flat">
