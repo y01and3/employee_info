@@ -9,7 +9,7 @@ interface ProfileRenderProps {
 
 const ProfileRender = ({ profile }: ProfileRenderProps) => {
   return (
-    <div className="w-[100vw] h-[100vh] bg-gray-200">
+    <div className="bg-gray-200">
       <div
         className="absolute p-[24px]"
         style={{ top: profile.name.top, left: profile.name.left }}
