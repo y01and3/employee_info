@@ -60,7 +60,6 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                       : exp,
                   );
 
-                  console.log(value);
                   onChange(newExperiences);
                 }}
               />
@@ -75,8 +74,6 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                       : exp,
                   );
 
-                  console.log(value);
-                  console.log(newExperiences);
                   onChange(newExperiences);
                 }}
               />
