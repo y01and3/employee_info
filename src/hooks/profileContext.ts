@@ -32,8 +32,8 @@ const defaultProfile: Profile = {
     context: [
       {
         id: 1,
-        start: new Date(),
-        end: new Date(),
+        start: Date.now(),
+        end: Date.now(),
         title: "Software Engineer at XYZ",
       },
     ],

@@ -61,18 +61,17 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute w-[50vw] p-[24px]"
+        className="absolute w-[50vw] p-[24px] flex flex-col gap-3"
         style={{ top: profile.resume.top, left: profile.resume.left }}
       >
         {profile.resume.context
           .map((experience) => (
-            <div key={experience.id} className="mb-2">
+            <div key={experience.id}>
               <h2>{experience.title}</h2>
               <p>
-                {experience.start.toLocaleDateString()} -{" "}
-                {experience.end.toLocaleDateString()}
+                {new Date(experience.start).toLocaleDateString()} -{" "}
+                {new Date(experience.end).toLocaleDateString()}
               </p>
-              <Divider />
             </div>
           ))
           .reduce(

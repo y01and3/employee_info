@@ -26,8 +26,8 @@ interface Social {
 
 interface Experience {
   id: number;
-  start: Date;
-  end: Date;
+  start: number;
+  end: number;
   title: string;
 }
 
