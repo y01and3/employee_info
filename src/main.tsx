@@ -1,4 +1,4 @@
-import { HeroUIProvider } from "@heroui/system";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -10,6 +10,7 @@ import EditApp from "./EditApp.tsx";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HeroUIProvider>
+      <ToastProvider />
       <BrowserRouter>
         <Routes>
           <Route element={<App />} path="/" />
