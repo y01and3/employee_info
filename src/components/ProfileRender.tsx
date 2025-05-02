@@ -48,7 +48,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute p-[24px]"
+        className="absolute p-[24px] flex flex-row gap-3"
         style={{ top: profile.social.top, left: profile.social.left }}
       >
         {profile.social.context.map((social) => (
