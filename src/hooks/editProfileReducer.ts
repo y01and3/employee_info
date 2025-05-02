@@ -1,7 +1,7 @@
 import type { Experience, Profile, Social, Tag } from "../profile.type";
 import type React from "react";
 
-type EditProfileAction =
+export type EditProfileAction =
   | {
       type: "POSITION";
       payload: {
@@ -16,6 +16,10 @@ type EditProfileAction =
         key: keyof Profile;
         data: string | Tag[] | Social[] | Experience[];
       };
+    }
+  | {
+      type: "FLASH";
+      payload: Profile;
     };
 
 const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
@@ -45,6 +49,9 @@ const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
           context: data,
         },
       };
+    }
+    case "FLASH": {
+      return action.payload;
     }
     default:
       return state;

@@ -1,4 +1,5 @@
 import type { Profile } from "../profile.type";
+import type { EditProfileAction } from "./editProfileReducer";
 
 import React from "react";
 
@@ -42,10 +43,12 @@ const defaultProfile: Profile = {
 
 const ProfileContext = React.createContext<{
   profile: Profile;
-  setProfile: (profile: Profile) => void;
+  dispatchProfile: (action: EditProfileAction) => void;
 }>({
   profile: defaultProfile,
-  setProfile: (_: Profile) => {},
+  dispatchProfile: () => {
+    throw new Error("dispatchProfile function not implemented");
+  },
 });
 
 const ProfileProvider = ProfileContext.Provider;

@@ -11,7 +11,7 @@ import {
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import React from "react";
 
-import editProfileReducer from "../hooks/editProfileReducer";
+import { ProfileContext } from "../hooks/profileContext";
 
 import DraggableBox from "./DraggableBox";
 import DroppableArea from "./DroppableArea";
@@ -20,15 +20,9 @@ import InPlaceEditor from "./editor/InPlaceEditor";
 import SocialEditor from "./editor/SocialEditor";
 import TagsEditor from "./editor/TagsEditor";
 
-interface ProfileEditorProps {
-  profile: Profile;
-}
+const ProfileEditor = () => {
+  const { profile, dispatchProfile } = React.useContext(ProfileContext);
 
-const ProfileEditor = ({ profile }: ProfileEditorProps) => {
-  const [profileState, profileDispatch] = React.useReducer(
-    editProfileReducer,
-    profile,
-  );
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
       delay: 250,
@@ -50,7 +44,7 @@ const ProfileEditor = ({ profile }: ProfileEditorProps) => {
     if (!id || !profile[id]) {
       return;
     }
-    profileDispatch({
+    dispatchProfile({
       type: "POSITION",
       payload: {
         key: id,
@@ -70,15 +64,15 @@ const ProfileEditor = ({ profile }: ProfileEditorProps) => {
         <DraggableBox
           className="border-4 rounded border-dotted border-blue-500"
           id="name"
-          left={profileState.name.left}
-          top={profileState.name.top}
+          left={profile.name.left}
+          top={profile.name.top}
         >
           <InPlaceEditor
             className="text-xl"
             type="text"
-            value={profileState.name.context}
+            value={profile.name.context}
             onSave={(value) =>
-              profileDispatch({
+              dispatchProfile({
                 type: "DATA",
                 payload: { key: "name", data: value },
               })
@@ -89,13 +83,13 @@ const ProfileEditor = ({ profile }: ProfileEditorProps) => {
         <DraggableBox
           className="border-4 rounded border-dotted border-blue-500 w-fit h-fit"
           id="tag"
-          left={profileState.tag.left}
-          top={profileState.tag.top}
+          left={profile.tag.left}
+          top={profile.tag.top}
         >
           <TagsEditor
-            tags={profileState.tag.context}
+            tags={profile.tag.context}
             onChange={(tags) =>
-              profileDispatch({
+              dispatchProfile({
                 type: "DATA",
                 payload: { key: "tag", data: tags },
               })
@@ -106,15 +100,15 @@ const ProfileEditor = ({ profile }: ProfileEditorProps) => {
         <DraggableBox
           className="border-4 rounded border-dotted border-blue-500"
           id="introduction"
-          left={profileState.introduction.left}
-          top={profileState.introduction.top}
+          left={profile.introduction.left}
+          top={profile.introduction.top}
         >
           <InPlaceEditor
             maxWidth={"70vw"}
             type="textarea"
-            value={profileState.introduction.context}
+            value={profile.introduction.context}
             onSave={(value) =>
-              profileDispatch({
+              dispatchProfile({
                 type: "DATA",
                 payload: { key: "introduction", data: value },
               })
@@ -125,13 +119,13 @@ const ProfileEditor = ({ profile }: ProfileEditorProps) => {
         <DraggableBox
           className="border-4 rounded border-dotted border-blue-500"
           id="social"
-          left={profileState.social.left}
-          top={profileState.social.top}
+          left={profile.social.left}
+          top={profile.social.top}
         >
           <SocialEditor
-            socials={profileState.social.context}
+            socials={profile.social.context}
             onChange={(socials) =>
-              profileDispatch({
+              dispatchProfile({
                 type: "DATA",
                 payload: { key: "social", data: socials },
               })
@@ -142,13 +136,13 @@ const ProfileEditor = ({ profile }: ProfileEditorProps) => {
         <DraggableBox
           className="border-4 rounded border-dotted border-blue-500"
           id="resume"
-          left={profileState.resume.left}
-          top={profileState.resume.top}
+          left={profile.resume.left}
+          top={profile.resume.top}
         >
           <ExperienceEditor
-            experiences={profileState.resume.context}
+            experiences={profile.resume.context}
             onChange={(experiences) =>
-              profileDispatch({
+              dispatchProfile({
                 type: "DATA",
                 payload: { key: "resume", data: experiences },
               })
