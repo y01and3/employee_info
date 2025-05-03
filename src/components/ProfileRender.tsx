@@ -1,7 +1,7 @@
 import type { Profile } from "../profile.type";
 import type { JSX } from "react";
 
-import { Button, Chip, Divider, Link } from "@heroui/react";
+import { Avatar, Button, Chip, Divider, Link } from "@heroui/react";
 
 interface ProfileRenderProps {
   profile: Profile;
@@ -15,6 +15,13 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         style={{ top: profile.name.top, left: profile.name.left }}
       >
         <h1 className="name">{profile.name.context}</h1>
+      </div>
+
+      <div
+        className="absolute p-[24px]"
+        style={{ top: profile.avatar.top, left: profile.avatar.left }}
+      >
+        <Avatar className="avatar" src={profile.avatar.context} />
       </div>
 
       <div
