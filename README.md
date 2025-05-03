@@ -82,27 +82,40 @@ Returns the employee profile information.
 
 ```json
 {
-  "name": "string",
-  "introduction": {
-    "text": "string",
+  "name": {
     "top": number,
-    "left": number
+    "left": number,
+    "context": string
   },
-  "tags": [
-    {
-      "id": "string",
-      "emoji": "string",
-      "text": "string"
-    }
-  ],
+  "avatar": {
+    "top": number,
+    "left": number,
+    "context": string
+  },
+  "tag": {
+    "top": number,
+    "left": number,
+    "context": [
+      {
+        "id": number,
+        "emoji": string,
+        "text": string
+      }
+    ]
+  },
+  "introduction": {
+    "top": number,
+    "left": number,
+    "context": string
+  },
   "social": {
     "top": number,
     "left": number,
     "context": [
       {
-        "id": "string",
-        "icon": "string",
-        "link": "string"
+        "id": number,
+        "emoji": string,
+        "link": string
       }
     ]
   },
@@ -111,10 +124,10 @@ Returns the employee profile information.
     "left": number,
     "context": [
       {
-        "id": "string",
-        "title": "string",
-        "start": "string",
-        "end": "string"
+        "id": number,
+        "start": number, // millisecond timestamp
+        "end": number, // millisecond timestamp
+        "title": string
       }
     ]
   }
@@ -139,19 +152,23 @@ Returns 200 on success.
 
 ## Todo
 
-- [ ] Image Management
-  - [ ] Avatar management
-  - [ ] Image gallery
-- [ ] Appearance Customization
-  - [ ] Custom fonts
-  - [ ] Theme colors
-  - [ ] Dark mode
-- [ ] Responsive Design
-  - [ ] Mobile-first layout
-  - [ ] Tablet optimization
-  - [ ] Desktop enhancement
-- [ ] Blog Integration
-  - [ ] External blog display
+- [ ]  Image Management
+
+  - [X]  Avatar management
+  - [ ]  Image gallery
+- [ ]  Appearance Customization
+
+  - [ ]  Custom fonts
+  - [ ]  Theme colors
+  - [ ]  Dark mode
+- [ ]  Responsive Design
+
+  - [ ]  Mobile-first layout
+  - [ ]  Tablet optimization
+  - [ ]  Desktop enhancement
+- [ ]  Blog Integration
+
+  - [ ]  External blog display
 
 ---
 
@@ -235,39 +252,52 @@ GET /api/profile
 
 ```json
 {
-  "name": 字符串,
-  "introduction": {
-    "text": 字符串,
-    "top": 数字,
-    "left": 数字
+  "name": {
+    "top": number,
+    "left": number,
+    "context": string
   },
-  "tags": [
-    {
-      "id": 字符串,
-      "emoji": 字符串,
-      "text": 字符串
-    }
-  ],
-  "social": {
-    "top": 数字,
-    "left": 数字,
+  "avatar": {
+    "top": number,
+    "left": number,
+    "context": string
+  },
+  "tag": {
+    "top": number,
+    "left": number,
     "context": [
       {
-        "id": 字符串,
-        "icon": 字符串,
-        "link": 字符串
+        "id": number,
+        "emoji": string,
+        "text": string
+      }
+    ]
+  },
+  "introduction": {
+    "top": number,
+    "left": number,
+    "context": string
+  },
+  "social": {
+    "top": number,
+    "left": number,
+    "context": [
+      {
+        "id": number,
+        "emoji": string,
+        "link": string
       }
     ]
   },
   "resume": {
-    "top": 数字,
-    "left": 数字,
+    "top": number,
+    "left": number,
     "context": [
       {
-        "id": 字符串,
-        "title": 字符串,
-        "start": 字符串,
-        "end": 字符串
+        "id": number,
+        "start": number, // 毫秒级时间戳
+        "end": number, // 毫秒级时间戳
+        "title": string
       }
     ]
   }
@@ -292,16 +322,20 @@ PUT /api/profile
 
 ## Todo
 
-- [ ] 图片上传功能
-  - [ ] 头像管理
-  - [ ] 图片库
-- [ ] 外观定制
-  - [ ] 自定义字体
-  - [ ] 主题颜色
-  - [ ] 暗色模式
-- [ ] 响应式设计
-  - [ ] 移动端优先布局
-  - [ ] 平板适配
-  - [ ] 桌面端优化
-- [ ] 博客展示
-  - [ ] 外链博客展示
+- [ ]  图片上传功能
+
+  - [X]  头像管理
+  - [ ]  图片库
+- [ ]  外观定制
+
+  - [ ]  自定义字体
+  - [ ]  主题颜色
+  - [ ]  暗色模式
+- [ ]  响应式设计
+
+  - [ ]  移动端优先布局
+  - [ ]  平板适配
+  - [ ]  桌面端优化
+- [ ]  博客展示
+
+  - [ ]  外链博客展示
