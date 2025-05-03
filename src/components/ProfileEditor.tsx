@@ -19,6 +19,7 @@ import ExperienceEditor from "./editor/ExperienceEditor";
 import InPlaceEditor from "./editor/InPlaceEditor";
 import SocialEditor from "./editor/SocialEditor";
 import TagsEditor from "./editor/TagsEditor";
+import AvatarEditor from "./editor/AvatarEditor";
 
 const ProfileEditor = () => {
   const { profile, dispatchProfile } = React.useContext(ProfileContext);
@@ -70,6 +71,22 @@ const ProfileEditor = () => {
               dispatchProfile({
                 type: "DATA",
                 payload: { key: "name", data: value },
+              })
+            }
+          />
+        </DraggableBox>
+
+        <DraggableBox
+          id="avatar"
+          left={profile.avatar.left}
+          top={profile.avatar.top}
+        >
+          <AvatarEditor
+            avatar={profile.avatar.context}
+            onChange={(src) =>
+              dispatchProfile({
+                type: "DATA",
+                payload: { key: "avatar", data: src },
               })
             }
           />
