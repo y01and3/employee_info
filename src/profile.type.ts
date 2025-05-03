@@ -1,5 +1,6 @@
 interface Profile {
   name: Item<string>;
+  avatar: Item<string>;
   tag: Item<Tag[]>;
   introduction: Item<string>;
   social: Item<Social[]>;
