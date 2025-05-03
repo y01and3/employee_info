@@ -5,6 +5,7 @@ import React from "react";
 
 const defaultProfile: Profile = {
   name: { top: 81, left: 315, context: "John Doe" },
+  avatar: { top: 35, left: 122, context: "https://i.pravatar.cc/480" },
   tag: {
     top: 211,
     left: 310,
