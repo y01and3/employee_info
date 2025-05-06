@@ -13,8 +13,8 @@ createRoot(document.getElementById("root")!).render(
       <ToastProvider />
       <HashRouter>
         <Routes>
-          <Route element={<App />} path="/employee_info/" />
-          <Route element={<EditApp />} path="/employee_info/edit" />
+          <Route element={<App />} path="/" />
+          <Route element={<EditApp />} path="/edit" />
         </Routes>
       </HashRouter>
     </HeroUIProvider>
