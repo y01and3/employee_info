@@ -8,8 +8,8 @@ interface Profile {
 }
 
 interface Item<T> {
-  top: number;
-  left: number;
+  gridX: number;
+  gridY: number;
   context: T;
 }
 

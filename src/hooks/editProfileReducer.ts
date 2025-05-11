@@ -6,8 +6,8 @@ export type EditProfileAction =
       type: "POSITION";
       payload: {
         key: keyof Profile;
-        top: number;
-        left: number;
+        gridX: number;
+        gridY: number;
       };
     }
   | {
@@ -28,14 +28,14 @@ const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
 ) => {
   switch (action.type) {
     case "POSITION": {
-      const { key, top, left } = action.payload;
+      const { key, gridX, gridY } = action.payload;
 
       return {
         ...state,
         [key]: {
           ...state[key],
-          top: state[key].top + top,
-          left: state[key].left + left,
+          gridX: gridX + state[key].gridX,
+          gridY: gridY + state[key].gridY,
         },
       };
     }

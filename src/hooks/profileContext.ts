@@ -4,29 +4,29 @@ import type { EditProfileAction } from "./editProfileReducer";
 import React from "react";
 
 const defaultProfile: Profile = {
-  name: { top: 81, left: 315, context: "John Doe" },
-  avatar: { top: 35, left: 122, context: "https://i.pravatar.cc/480" },
+  name: { gridX: 1, gridY: 1, context: "John Doe" },
+  avatar: { gridX: 1, gridY: 1, context: "https://i.pravatar.cc/480" },
   tag: {
-    top: 211,
-    left: 310,
+    gridX: 1,
+    gridY: 1,
     context: [
       { id: 1, emoji: "👨‍💻", text: "Developer" },
       { id: 2, emoji: "🌍", text: "Traveler" },
     ],
   },
   introduction: {
-    top: 283,
-    left: 310,
+    gridX: 1,
+    gridY: 1,
     context: "Hello, I am John Doe, a software developer.",
   },
   social: {
-    top: 352,
-    left: 701,
+    gridX: 1,
+    gridY: 1,
     context: [{ id: 1, emoji: "🤖", link: "https://example.com/" }],
   },
   resume: {
-    top: 490,
-    left: 327,
+    gridX: 1,
+    gridY: 1,
     context: [
       {
         id: 1,

@@ -4,16 +4,16 @@ import React from "react";
 
 interface DraggableBoxProps {
   id: string;
-  top: number;
-  left: number;
+  gridX?: number;
+  gridY?: number;
   className?: string;
   children?: React.ReactNode;
 }
 
 const DraggableBox = ({
   id,
-  top,
-  left,
+  gridX,
+  gridY,
   children,
   className,
 }: DraggableBoxProps) => {
@@ -22,8 +22,8 @@ const DraggableBox = ({
       id,
     });
   const style = {
-    top,
-    left,
+    gridColumnStart: gridX,
+    gridRowStart: gridY,
     transform: CSS.Translate.toString(transform),
   };
 
@@ -31,7 +31,7 @@ const DraggableBox = ({
     <div
       ref={setNodeRef}
       className={
-        `draggable absolute p-5` +
+        `draggable` +
         " " +
         (isDragging ? "cursor-grabbing" : "cursor-grab") +
         " " +

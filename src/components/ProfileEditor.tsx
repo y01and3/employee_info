@@ -8,21 +8,26 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { createSnapModifier, restrictToWindowEdges } from "@dnd-kit/modifiers";
 import React from "react";
 
 import { ProfileContext } from "../hooks/profileContext";
 
 import DraggableBox from "./DraggableBox";
 import DroppableArea from "./DroppableArea";
+import AvatarEditor from "./editor/AvatarEditor";
 import ExperienceEditor from "./editor/ExperienceEditor";
 import InPlaceEditor from "./editor/InPlaceEditor";
 import SocialEditor from "./editor/SocialEditor";
 import TagsEditor from "./editor/TagsEditor";
-import AvatarEditor from "./editor/AvatarEditor";
 
 const ProfileEditor = () => {
   const { profile, dispatchProfile } = React.useContext(ProfileContext);
+  const vw = window.innerWidth;
+  const gridSize = vw >= 1280 ? vw / 20 : vw >= 768 ? vw / 10 : vw / 5;
+  const snapToGrid = React.useMemo(() => {
+    return createSnapModifier(gridSize);
+  }, [gridSize]);
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -49,20 +54,24 @@ const ProfileEditor = () => {
       type: "POSITION",
       payload: {
         key: id,
-        top: event.delta.y,
-        left: event.delta.x,
+        gridX: Math.ceil(event.delta.x / gridSize),
+        gridY: Math.ceil(event.delta.y / gridSize),
       },
     });
   };
 
   return (
     <DndContext
-      modifiers={[restrictToWindowEdges]}
+      modifiers={[snapToGrid]}
       sensors={sensors}
       onDragEnd={handleDragEnd}
     >
-      <DroppableArea id="droppable">
-        <DraggableBox id="name" left={profile.name.left} top={profile.name.top}>
+      <DroppableArea id="droppable" className="grid-box">
+        <DraggableBox
+          id="name"
+          gridX={profile.name.gridX}
+          gridY={profile.name.gridY}
+        >
           <InPlaceEditor
             className="name"
             type="text"
@@ -78,8 +87,8 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="avatar"
-          left={profile.avatar.left}
-          top={profile.avatar.top}
+          gridX={profile.avatar.gridX}
+          gridY={profile.avatar.gridY}
         >
           <AvatarEditor
             avatar={profile.avatar.context}
@@ -92,7 +101,11 @@ const ProfileEditor = () => {
           />
         </DraggableBox>
 
-        <DraggableBox id="tag" left={profile.tag.left} top={profile.tag.top}>
+        <DraggableBox
+          id="tag"
+          gridX={profile.tag.gridX}
+          gridY={profile.tag.gridY}
+        >
           <TagsEditor
             tags={profile.tag.context}
             onChange={(tags) =>
@@ -106,8 +119,8 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="introduction"
-          left={profile.introduction.left}
-          top={profile.introduction.top}
+          gridX={profile.introduction.gridX}
+          gridY={profile.introduction.gridY}
         >
           <InPlaceEditor
             className="introduction"
@@ -125,8 +138,8 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="social"
-          left={profile.social.left}
-          top={profile.social.top}
+          gridX={profile.social.gridX}
+          gridY={profile.social.gridY}
         >
           <SocialEditor
             socials={profile.social.context}
@@ -141,8 +154,8 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="resume"
-          left={profile.resume.left}
-          top={profile.resume.top}
+          gridX={profile.resume.gridX}
+          gridY={profile.resume.gridY}
         >
           <ExperienceEditor
             experiences={profile.resume.context}

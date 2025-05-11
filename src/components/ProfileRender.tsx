@@ -9,24 +9,35 @@ interface ProfileRenderProps {
 
 const ProfileRender = ({ profile }: ProfileRenderProps) => {
   return (
-    <div className="bg-gray-200">
+    <div className="bg-gray-200 grid-box">
       <div
-        className="absolute p-[24px]"
-        style={{ top: profile.name.top, left: profile.name.left }}
+        className="render-box"
+        style={{
+          gridColumnStart: profile.name.gridX,
+          gridRowStart: profile.name.gridY,
+        }}
       >
         <h1 className="name">{profile.name.context}</h1>
       </div>
 
       <div
-        className="absolute p-[24px]"
-        style={{ top: profile.avatar.top, left: profile.avatar.left }}
+        className="render-box"
+        style={{
+          gridColumnStart: profile.avatar.gridX,
+          gridRowStart: profile.avatar.gridY,
+        }}
       >
-        <Avatar className="avatar" src={profile.avatar.context} />
+        <div className="avatar-box">
+          <Avatar className="avatar" src={profile.avatar.context} />
+        </div>
       </div>
 
       <div
-        className="absolute p-[24px] tags"
-        style={{ top: profile.tag.top, left: profile.tag.left }}
+        className="render-box tags"
+        style={{
+          gridColumnStart: profile.tag.gridX,
+          gridRowStart: profile.tag.gridY,
+        }}
       >
         {profile.tag.context.map((tag) => (
           <Chip
@@ -45,18 +56,21 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute p-[24px]"
+        className="render-box"
         style={{
-          top: profile.introduction.top,
-          left: profile.introduction.left,
+          gridColumnStart: profile.introduction.gridX,
+          gridRowStart: profile.introduction.gridY,
         }}
       >
         <p className="introduction">{profile.introduction.context}</p>
       </div>
 
       <div
-        className="absolute p-[24px] social"
-        style={{ top: profile.social.top, left: profile.social.left }}
+        className="render-box social"
+        style={{
+          gridColumnStart: profile.social.gridX,
+          gridRowStart: profile.social.gridY,
+        }}
       >
         {profile.social.context.map((social) => (
           <Button key={social.id} isIconOnly as={Link} href={social.link}>
@@ -68,8 +82,11 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
       </div>
 
       <div
-        className="absolute p-[24px] resume"
-        style={{ top: profile.resume.top, left: profile.resume.left }}
+        className="render-box resume"
+        style={{
+          gridColumnStart: profile.resume.gridX,
+          gridRowStart: profile.resume.gridY,
+        }}
       >
         {profile.resume.context
           .map((experience) => (
@@ -86,7 +103,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
               prev.length > 0
                 ? [...prev, <Divider key={index} />, curr]
                 : [curr],
-            [] as JSX.Element[],
+            [] as JSX.Element[]
           )}
       </div>
     </div>

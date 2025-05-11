@@ -25,6 +25,14 @@
 }
 
 @layer utilities {
+  .grid-box{
+    @apply w-[100vw] h-[100vw] grid aspect-square grid-cols-5 md:grid-cols-10 xl:grid-cols-20 gap-0 auto-rows-[20vw] md:auto-rows-[10vw] xl:auto-rows-[5vw] overflow-hidden;
+  }
+
+  .render-box {
+    @apply aspect-square row-span-1 col-span-1 p-5 overflow-visible;
+  }
+
   .name {
     @apply text-4xl font-bold tracking-tight text-gray-900;
   }
@@ -58,6 +66,6 @@
   }
 
   .draggable {
-    @apply border-4 rounded border-dotted border-blue-500 w-fit h-fit;
+    @apply aspect-square row-span-1 col-span-1  border-4 p-5 rounded border-dotted border-blue-500 overflow-visible;
   }
 }
