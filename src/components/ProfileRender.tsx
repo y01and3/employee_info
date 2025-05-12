@@ -1,7 +1,9 @@
 import type { Profile } from "../profile.type";
 import type { JSX } from "react";
 
-import { Avatar, Button, Chip, Divider, Link } from "@heroui/react";
+import { Button, Chip, Divider, Link } from "@heroui/react";
+
+import Avatar from "./animations/Avatar";
 
 interface ProfileRenderProps {
   profile: Profile;
@@ -27,9 +29,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
           gridRowStart: profile.avatar.gridY,
         }}
       >
-        <div className="avatar-box">
-          <Avatar className="avatar" src={profile.avatar.context} />
-        </div>
+        <Avatar className="avatar" src={profile.avatar.context} />
       </div>
 
       <div
@@ -103,7 +103,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
               prev.length > 0
                 ? [...prev, <Divider key={index} />, curr]
                 : [curr],
-            [] as JSX.Element[]
+            [] as JSX.Element[],
           )}
       </div>
     </div>

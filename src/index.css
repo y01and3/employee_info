@@ -31,21 +31,6 @@
     @apply text-9xl font-bold tracking-tight text-gray-900;
   }
 
-  .avatar {
-    width: max(20vw, 30vh);
-    height: max(20vw, 30vh);
-  }
-  .avatar-box {
-    @apply border-2 rounded-full w-fit h-fit;
-    padding: max(2vw, 3vh);
-  }
-  .avatar-box :hover {
-    @apply scale-125 transition-transform duration-500;
-  }
-  .avatar-box :not(:hover) {
-    @apply scale-100 transition-transform duration-500;
-  }
-
   .tags {
     @apply flex flex-row flex-wrap gap-3 max-w-[50vw];
   }
