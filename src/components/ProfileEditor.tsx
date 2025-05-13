@@ -62,15 +62,15 @@ const ProfileEditor = () => {
 
   return (
     <DndContext
-      modifiers={[snapToGrid]}
+      modifiers={[snapToGrid, restrictToWindowEdges]}
       sensors={sensors}
       onDragEnd={handleDragEnd}
     >
-      <DroppableArea id="droppable" className="grid-box">
+      <DroppableArea className="grid-box" id="droppable">
         <DraggableBox
-          id="name"
           gridX={profile.name.gridX}
           gridY={profile.name.gridY}
+          id="name"
         >
           <InPlaceEditor
             className="name"
@@ -86,9 +86,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          id="avatar"
           gridX={profile.avatar.gridX}
           gridY={profile.avatar.gridY}
+          id="avatar"
         >
           <AvatarEditor
             avatar={profile.avatar.context}
@@ -102,9 +102,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          id="tag"
           gridX={profile.tag.gridX}
           gridY={profile.tag.gridY}
+          id="tag"
         >
           <TagsEditor
             tags={profile.tag.context}
@@ -118,9 +118,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          id="introduction"
           gridX={profile.introduction.gridX}
           gridY={profile.introduction.gridY}
+          id="introduction"
         >
           <InPlaceEditor
             className="introduction"
@@ -137,9 +137,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          id="social"
           gridX={profile.social.gridX}
           gridY={profile.social.gridY}
+          id="social"
         >
           <SocialEditor
             socials={profile.social.context}
@@ -153,9 +153,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          id="resume"
           gridX={profile.resume.gridX}
           gridY={profile.resume.gridY}
+          id="resume"
         >
           <ExperienceEditor
             experiences={profile.resume.context}
