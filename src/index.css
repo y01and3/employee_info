@@ -20,7 +20,7 @@
 
 @layer utilities {
   .grid-box {
-    @apply w-[100vw] h-[100vw] grid aspect-square grid-cols-5 md:grid-cols-10 xl:grid-cols-20 gap-0 auto-rows-[20vw] md:auto-rows-[10vw] xl:auto-rows-[5vw] overflow-hidden;
+    @apply w-[100vw] h-[200vw] md:h-[100vw] xl:h-[50vw] grid aspect-square grid-cols-5 md:grid-cols-10 xl:grid-cols-20 gap-0 auto-rows-[20vw] md:auto-rows-[10vw] xl:auto-rows-[5vw] overflow-hidden;
   }
 
   .render-box {
