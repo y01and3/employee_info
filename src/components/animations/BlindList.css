@@ -1,0 +1,32 @@
+.blind-list-container {
+    
+}
+
+.blind-list-spacer-top,
+.blind-list-spacer-bottom {
+  height: 50vh;
+  width: 100%;
+}
+
+.blind-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.blind-item-wrapper {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+
+.blind-item-clipper {
+  width: 100%;
+}
+
+
+.blind-item-content {
+   padding: 15px;
+   width: 100%;
+   box-sizing: border-box;
+   min-height: 1px;
+}
