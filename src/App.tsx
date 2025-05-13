@@ -9,7 +9,7 @@ import ProfileRender from "./components/ProfileRender";
 import { defaultProfile } from "./hooks/profileContext";
 
 function App() {
-  const [profile, setProfile] = React.useState(defaultProfile);
+  const [profile, setProfile] = React.useState<Profile>(defaultProfile);
 
   React.useEffect(() => {
     if (!baseUrl) {
