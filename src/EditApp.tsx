@@ -49,7 +49,7 @@ const EditApp = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="sticky top-0 w-full z-50">
+      <div className="fixed top-0 right-0 w-fit z-50">
         <Button
           className="m-5 float-right"
           color="warning"

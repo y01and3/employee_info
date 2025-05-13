@@ -41,7 +41,7 @@ const DraggableBox = ({
       {...listeners}
       {...attributes}
     >
-      {children}
+      <div className="w-fit h-fit">{children}</div>
     </div>
   );
 };

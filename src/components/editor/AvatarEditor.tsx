@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Input,
   Popover,
@@ -7,6 +6,8 @@ import {
   PopoverTrigger,
 } from "@heroui/react";
 import React from "react";
+
+import Avatar from "../animations/Avatar";
 
 interface AvatarEditorProps {
   avatar: string;

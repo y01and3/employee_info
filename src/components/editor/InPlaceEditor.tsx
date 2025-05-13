@@ -12,18 +12,20 @@ interface InPlaceEditProps {
   onSave?: (value: string) => void;
   onCancel?: () => void;
   onDelete?: () => void;
+  iconSize?: number | string;
 }
 
 const InPlaceEditor = ({
   type,
   value,
   className,
-  minWidth = 100,
-  maxWidth = 500,
-  maxLines = 10,
+  minWidth,
+  maxWidth,
+  maxLines,
   onSave,
   onCancel,
   onDelete,
+  iconSize,
 }: InPlaceEditProps) => {
   const [lastSubmittedValue, setLastSubmittedValue] = React.useState(value);
   const [inputValue, setInputValue] = React.useState(value);
@@ -35,7 +37,7 @@ const InPlaceEditor = ({
   };
 
   return (
-    <div className="w-fit h-fit flex flex-row ">
+    <div className="w-fit h-fit flex flex-row justify-center items-center">
       <div className="relative">
         <span
           className={className}
@@ -90,7 +92,7 @@ const InPlaceEditor = ({
       </div>
       {onSave && (
         <button
-          className="save-button"
+          className="editor-button save-button"
           onClick={() => {
             if (inputValue === lastSubmittedValue) {
               return;
@@ -99,27 +101,45 @@ const InPlaceEditor = ({
             setLastSubmittedValue(inputValue);
           }}
         >
-          <Icon className="m-auto" icon="line-md:confirm" />
+          <Icon
+            className="m-auto"
+            icon="line-md:confirm"
+            {...(iconSize
+              ? { width: iconSize, height: iconSize }
+              : { width: "1rem", height: "1rem" })}
+          />
         </button>
       )}
       {onCancel && (
         <button
-          className="cancel-button"
+          className="editor-button cancel-button"
           onClick={() => {
             onCancel();
           }}
         >
-          <Icon className="m-auto" icon="line-md:close" />
+          <Icon
+            className="m-auto"
+            icon="line-md:close"
+            {...(iconSize
+              ? { width: iconSize, height: iconSize }
+              : { width: "1rem", height: "1rem" })}
+          />
         </button>
       )}
       {onDelete && (
         <button
-          className="delete-button"
+          className="editor-button delete-button"
           onClick={() => {
             onDelete();
           }}
         >
-          <Icon className="text-red-600 m-auto" icon="line-md:trash" />
+          <Icon
+            className="text-red-600 m-auto"
+            icon="line-md:trash"
+            {...(iconSize
+              ? { width: iconSize, height: iconSize }
+              : { width: "1rem", height: "1rem" })}
+          />
         </button>
       )}
     </div>

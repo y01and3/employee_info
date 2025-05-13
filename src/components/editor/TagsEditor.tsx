@@ -15,14 +15,21 @@ import InPlaceEditor from "./InPlaceEditor";
 
 interface TagsEditorProps {
   tags: Tag[];
+  minWidth?: number | string;
+  maxWidth?: number | string;
   onChange: (tags: Tag[]) => void;
 }
 
-const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
+const TagsEditor = ({
+  tags,
+  onChange,
+  minWidth,
+  maxWidth,
+}: TagsEditorProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <div className="tags">
+    <div className="tags" style={{ minWidth, maxWidth }}>
       {tags.map((tag) => (
         <Chip
           key={tag.id}

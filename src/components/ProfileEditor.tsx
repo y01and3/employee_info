@@ -74,6 +74,8 @@ const ProfileEditor = () => {
         >
           <InPlaceEditor
             className="name"
+            maxWidth={gridSize * 10}
+            minWidth={gridSize * 3}
             type="text"
             value={profile.name.context}
             onSave={(value) =>
@@ -107,6 +109,8 @@ const ProfileEditor = () => {
           id="tag"
         >
           <TagsEditor
+            maxWidth={gridSize * 15}
+            minWidth={gridSize * 5}
             tags={profile.tag.context}
             onChange={(tags) =>
               dispatchProfile({
@@ -124,7 +128,8 @@ const ProfileEditor = () => {
         >
           <InPlaceEditor
             className="introduction"
-            maxWidth={"70vw"}
+            maxWidth={gridSize * 15}
+            minWidth={gridSize * 5}
             type="textarea"
             value={profile.introduction.context}
             onSave={(value) =>
