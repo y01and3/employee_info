@@ -26,7 +26,7 @@ const Name = ({ children, className, style }: NameProps) => {
     <div className={`name-container ${className}`} style={style}>
       {children.split("").map((char, index) => (
         <motion.span
-          key={index}
+          key={char + index}
           animate={rotatingIndex === index ? { rotate: 30 } : { rotate: 0 }}
           className="inline-block"
           transition={{
