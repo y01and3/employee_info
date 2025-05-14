@@ -36,7 +36,7 @@
   }
 
   .introduction {
-    @apply max-w-[70vw] text-lg leading-relaxed text-gray-600;
+    @apply max-w-[70vw] text-lg leading-relaxed text-gray-600 break-words whitespace-pre-line;
   }
 
   .social {
