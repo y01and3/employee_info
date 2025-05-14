@@ -16,7 +16,9 @@ function App() {
       const lsProfile = localStorage.getItem("profile");
 
       if (lsProfile) {
-        setProfile(JSON.parse(lsProfile));
+        const parsedProfile = JSON.parse(lsProfile) as Profile;
+
+        setProfile(parsedProfile);
       }
 
       return;
