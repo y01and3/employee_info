@@ -166,7 +166,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
             </div>
           ),
         }))}
-        speed={1.5}
+        speed={widthSize === "xl" ? 2 : 1.5}
       />
     </div>
   );
