@@ -5,7 +5,7 @@ import React from "react";
 
 const defaultProfile: Profile = {
   name: { gridX: 3, gridY: 5, context: "Alice White" },
-  avatar: { gridX: 2, gridY: 1, context: "https://i.pravatar.cc/300?img=5" },
+  avatar: { gridX: 2, gridY: 1, context: "https://i.pravatar.cc/1200" },
   tag: {
     gridX: 14,
     gridY: 2,
