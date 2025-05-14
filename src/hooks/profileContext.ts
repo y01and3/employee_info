@@ -4,53 +4,52 @@ import type { EditProfileAction } from "./editProfileReducer";
 import React from "react";
 
 const defaultProfile: Profile = {
-  name: { gridX: 8, gridY: 5, context: "John Doe" },
-  avatar: { gridX: 3, gridY: 2, context: "https://i.pravatar.cc/480" },
+  name: { gridX: 3, gridY: 5, context: "Alice White" },
+  avatar: { gridX: 2, gridY: 1, context: "https://i.pravatar.cc/300?img=5" },
   tag: {
-    gridX: 13,
-    gridY: 4,
+    gridX: 14,
+    gridY: 2,
     context: [
-      { id: 1, emoji: "👨‍💻", text: "Developer" },
-      { id: 2, emoji: "🌍", text: "Traveler" },
+      { id: 1, emoji: "👩‍💻", text: "Full-Stack Developer" },
+      { id: 2, emoji: "🎨", text: "UI/UX Designer" },
+      { id: 3, emoji: "📚", text: "Tech Blogger" },
     ],
   },
   introduction: {
     gridX: 3,
-    gridY: 9,
-    context: "Hello, I am John Doe, a software developer.",
+    gridY: 7,
+    context:
+      "👋 Hi there! I'm Alice White, a passionate full-stack developer with 5+ years of experience in building scalable web applications.",
   },
   social: {
-    gridX: 13,
-    gridY: 8,
-    context: [{ id: 1, emoji: "🤖", link: "https://example.com/" }],
+    gridX: 12,
+    gridY: 4,
+    context: [
+      { id: 1, emoji: "🐦", link: "https://twitter.com/alicewhite" },
+      { id: 2, emoji: "💼", link: "https://linkedin.com/in/alicewhite" },
+      { id: 3, emoji: "📸", link: "https://instagram.com/alicewhite" },
+      { id: 4, emoji: "🌐", link: "https://alicewhite.dev" },
+    ],
   },
   resume: {
-    gridX: 7,
-    gridY: 14,
+    gridX: 6,
+    gridY: 10,
     context: [
       {
         id: 1,
-        start: 1746177984868,
-        end: 1746177984868,
-        title: "Software Engineer at XYZ",
+        start: 1622505600000,
+        end: 1685664000000,
+        title: "Senior Software Engineer at TechCorp",
+        description:
+          "💻 Led a team of developers to build a high-performance e-commerce platform, improving load times by 30%.",
       },
       {
-        id: 1747208946658,
-        start: 1747440000000,
-        end: 1748044800000,
-        title: "111",
-      },
-      {
-        id: 1747215037773,
-        start: 1747094400000,
-        end: 1747872000000,
-        title: "222",
-      },
-      {
-        id: 1747215043199,
-        start: 1746489600000,
-        end: 1747180800000,
-        title: "333",
+        id: 2,
+        start: 1590969600000,
+        end: 1622505600000,
+        title: "UI/UX Designer at CreativeStudio",
+        description:
+          "🎨 Designed and implemented user-friendly interfaces for a variety of web and mobile applications.",
       },
     ],
   },

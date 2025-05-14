@@ -30,6 +30,7 @@ interface Experience {
   start: number;
   end: number;
   title: string;
+  description?: string;
 }
 
 export type { Profile, Item, Tag, Social, Experience };

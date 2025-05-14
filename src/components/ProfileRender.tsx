@@ -1,6 +1,6 @@
 import type { Profile } from "../profile.type";
 
-import { Button, Chip, Link } from "@heroui/react";
+import { Button, Chip, Divider, Link } from "@heroui/react";
 import React from "react";
 
 import Avatar from "./animations/Avatar";
@@ -86,6 +86,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
             {profile.tag.context.map((tag) => (
               <Chip
                 key={tag.id}
+                className="tag"
                 color="secondary"
                 startContent={
                   <span className="ml-1 my-auto" role="img">
@@ -119,18 +120,22 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
           </p>
         </RenderBox>
 
-        <RenderBox
-          className="social"
-          gridX={profile.social.gridX}
-          gridY={profile.social.gridY}
-        >
+        <RenderBox gridX={profile.social.gridX} gridY={profile.social.gridY}>
+          <div className="social">
           {profile.social.context.map((social) => (
-            <Button key={social.id} isIconOnly as={Link} href={social.link}>
+              <Button
+                key={social.id}
+                isIconOnly
+                as={Link}
+                className="social-button"
+                href={social.link}
+              >
               <span className="m-auto" role="img">
                 {social.emoji}
               </span>
             </Button>
           ))}
+          </div>
         </RenderBox>
       </div>
 
@@ -145,10 +150,17 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
                 {new Date(experience.start).toLocaleDateString()} -{" "}
                 {new Date(experience.end).toLocaleDateString()}
               </p>
+
+              {experience.description && (
+                <>
+                  <Divider className="my-5" />
+                  <p className="resume-description">{experience.description}</p>
+                </>
+              )}
             </div>
           ),
         }))}
-        speed={1.25}
+        speed={1.5}
       />
     </div>
   );

@@ -9,6 +9,7 @@ import {
   Input,
   DateRangePicker,
   Divider,
+  Textarea,
 } from "@heroui/react";
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import React from "react";
@@ -78,6 +79,23 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                 }}
               />
             </div>
+            <Divider className="my-5" />
+            <InPlaceEditor
+              className="w-full text-left"
+              maxWidth="95%"
+              minWidth={100}
+              type="textarea"
+              value={experience.description ?? ""}
+              onSave={(value) => {
+                const newExperiences = experiences.map((exp) =>
+                  exp.id === experience.id
+                    ? { ...exp, description: value }
+                    : exp,
+                );
+
+                onChange(newExperiences);
+              }}
+            />
           </div>
         ))
         .reduce(
@@ -123,6 +141,7 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                       start: Date.parse(formData.get("start") as string),
                       end: Date.parse(formData.get("end") as string),
                       title: formData.get("title") as string,
+                      description: formData.get("description") as string,
                     },
                   ];
 
@@ -141,6 +160,12 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                 <Input
                   label="title"
                   name="title"
+                  size="sm"
+                  variant="bordered"
+                />
+                <Textarea
+                  label="description"
+                  name="description"
                   size="sm"
                   variant="bordered"
                 />
