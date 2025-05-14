@@ -121,17 +121,14 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
             <Icon className="m-auto" icon="line-md:plus" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-[240px]">
+        <PopoverContent className="w-full">
           {(titleProps) => (
             <div className="px-1 py-2 w-full">
-              <p
-                className="text-small font-bold text-foreground"
-                {...titleProps}
-              >
+              <p className="text-sm font-bold text-foreground" {...titleProps}>
                 Experience
               </p>
               <form
-                className="mt-2 flex flex-col gap-2 w-full"
+                className="mt-2 flex flex-col gap-2 w-full text-xs"
                 onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.currentTarget);

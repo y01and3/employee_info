@@ -26,7 +26,7 @@ const ProfileEditor = () => {
   const [vw, setVw] = React.useState(window.innerWidth);
   const widthSize = React.useMemo(
     () => (vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm"),
-    [vw]
+    [vw],
   );
   const gridSize = React.useMemo(() => (vw >= 1280 ? vw / 20 : vw / 10), [vw]);
 
