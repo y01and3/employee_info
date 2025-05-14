@@ -34,13 +34,22 @@
   .tags {
     @apply flex flex-row flex-wrap gap-3 max-w-[50vw];
   }
+  .tags :hover {
+    @apply scale-105 transition-transform duration-200;
+  }
+  .tag :hover {
+      @apply scale-100;
+    }
 
   .introduction {
-    @apply max-w-[70vw] text-lg leading-relaxed text-gray-600 break-words whitespace-pre-line;
+    @apply max-w-[100vw] md:max-w-[50vw] text-lg lg:text-3xl leading-relaxed text-gray-600 break-words whitespace-pre-line;
   }
 
   .social {
     @apply flex flex-row gap-4;
+  }
+  .social :hover{
+    @apply scale-105 transition-transform duration-200;
   }
 
   .resume {
