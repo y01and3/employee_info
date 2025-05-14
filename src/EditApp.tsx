@@ -48,7 +48,7 @@ const EditApp = () => {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col items-center justify-center relative bg-gray-200">
       <div className="fixed top-0 right-0 w-fit z-50">
         <Button
           className="m-5 float-right"

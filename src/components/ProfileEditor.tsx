@@ -156,23 +156,16 @@ const ProfileEditor = () => {
             }
           />
         </DraggableBox>
-
-        <DraggableBox
-          gridX={profile.resume.gridX}
-          gridY={profile.resume.gridY}
-          id="resume"
-        >
-          <ExperienceEditor
-            experiences={profile.resume.context}
-            onChange={(experiences) =>
-              dispatchProfile({
-                type: "DATA",
-                payload: { key: "resume", data: experiences },
-              })
-            }
-          />
-        </DraggableBox>
       </DroppableArea>
+      <ExperienceEditor
+        experiences={profile.resume.context}
+        onChange={(experiences) =>
+          dispatchProfile({
+            type: "DATA",
+            payload: { key: "resume", data: experiences },
+          })
+        }
+      />
     </DndContext>
   );
 };

@@ -4,7 +4,7 @@ import { Button, Chip, Link } from "@heroui/react";
 import React from "react";
 
 import Avatar from "./animations/Avatar";
-import { BlindList } from "./animations/BlindList";
+import BlindList from "./animations/BlindList";
 
 interface RenderBoxProps {
   className?: string;
@@ -52,8 +52,8 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center">
-      <div className="bg-gray-200 grid-box">
+    <div className="flex flex-col gap-2 items-center justify-center relative bg-gray-200">
+      <div className="grid-box">
         <RenderBox gridX={profile.name.gridX} gridY={profile.name.gridY}>
           <h1
             className="name"
@@ -148,7 +148,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
             </div>
           ),
         }))}
-        speed={5}
+        speed={1.5}
       />
     </div>
   );
