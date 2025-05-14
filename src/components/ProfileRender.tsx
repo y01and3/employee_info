@@ -5,6 +5,7 @@ import React from "react";
 
 import Avatar from "./animations/Avatar";
 import BlindList from "./animations/BlindList";
+import Name from "./animations/Name";
 import TextGenerateEffect from "./animations/TextGenerateEffect";
 
 interface RenderBoxProps {
@@ -56,16 +57,19 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
     <div className="flex flex-col gap-2 items-center justify-center relative bg-gray-200">
       <div className="grid-box">
         <RenderBox gridX={profile.name.gridX} gridY={profile.name.gridY}>
-          <h1
+          <Name
             className="name"
             style={{
-              maxWidth: gridSize * (widthSize === "sm" ? 5 : 10),
-              minWidth: gridSize * 3,
-              whiteSpace: widthSize === "sm" ? "normal" : "nowrap",
+              maxWidth:
+                gridSize *
+                (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15),
+              minWidth:
+                gridSize *
+                (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13),
             }}
           >
             {profile.name.context}
-          </h1>
+          </Name>
         </RenderBox>
 
         <RenderBox gridX={profile.avatar.gridX} gridY={profile.avatar.gridY}>
