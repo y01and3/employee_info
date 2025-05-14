@@ -1,10 +1,9 @@
-import type { MotionValue } from "framer-motion";
 import type { ReactNode } from "react";
 
-import { useScroll, useTransform } from "framer-motion";
-import React, { useRef } from "react";
+import { useScroll } from "framer-motion";
+import React from "react";
 
-import { BlindItem } from "./BlindItem";
+import BlindItem from "./BlindItem";
 import "./BlindList.css";
 
 interface BlindItemData {
@@ -19,59 +18,6 @@ interface GetScrollAnimationRangesFn {
     speed: number,
   ): { fromRange: number[]; toRange: number[] };
 }
-
-interface BlindListProps {
-  className?: string;
-  items: BlindItemData[];
-  speed?: number;
-  getScrollAnimationRanges?: GetScrollAnimationRangesFn;
-}
-
-export const BlindList: React.FC<BlindListProps> = ({
-  className,
-  items,
-  speed = 1,
-  getScrollAnimationRanges = defaultGetScrollAnimationRanges,
-}) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "center start"],
-  });
-
-  const itemRevealProgresses: MotionValue<number>[] = items.map((_, index) => {
-    const { fromRange, toRange } = getScrollAnimationRanges(
-      index,
-      items.length,
-      speed,
-    );
-
-    const revealProgress = useTransform(scrollYProgress, fromRange, toRange, {
-      clamp: true,
-    });
-
-    return revealProgress;
-  });
-
-  return (
-    <div
-      ref={containerRef}
-      className={`blind-list-container ${className ?? ""}`}
-    >
-      <div className="blind-list">
-        {items.map((item, index) => (
-          <BlindItem
-            key={item.id}
-            content={item.content}
-            revealProgress={itemRevealProgresses[index]}
-          />
-        ))}
-      </div>
-      <div className="blind-list-spacer-bottom" />
-    </div>
-  );
-};
 
 const defaultGetScrollAnimationRanges: GetScrollAnimationRangesFn = (
   index,
@@ -91,3 +37,53 @@ const defaultGetScrollAnimationRanges: GetScrollAnimationRangesFn = (
     toRange: [0, 1],
   };
 };
+
+interface BlindListProps {
+  className?: string;
+  items: BlindItemData[];
+  speed?: number;
+  getScrollAnimationRanges?: GetScrollAnimationRangesFn;
+}
+
+const BlindList = ({
+  className,
+  items,
+  speed = 1,
+  getScrollAnimationRanges = defaultGetScrollAnimationRanges,
+}: BlindListProps) => {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "start center"],
+  });
+
+  return (
+    <div
+      ref={containerRef}
+      className={`blind-list-container ${className ?? ""}`}
+    >
+      <div className="blind-list">
+        {items.map((item, index) => {
+          const { fromRange, toRange } = getScrollAnimationRanges(
+            index,
+            items.length,
+            speed,
+          );
+
+          return (
+            <BlindItem
+              key={item.id}
+              content={item.content}
+              fromRange={fromRange}
+              scrollYProgress={scrollYProgress}
+              toRange={toRange}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+export default BlindList;

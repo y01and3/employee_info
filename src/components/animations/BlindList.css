@@ -1,11 +1,5 @@
 .blind-list-container {
-    
-}
-
-.blind-list-spacer-top,
-.blind-list-spacer-bottom {
-  height: 50vh;
-  width: 100%;
+  margin-bottom: 50vh;
 }
 
 .blind-list {

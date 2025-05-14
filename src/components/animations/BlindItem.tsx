@@ -7,13 +7,21 @@ import "./BlindList.css";
 
 interface BlindItemProps {
   content: ReactNode;
-  revealProgress: MotionValue<number>;
+  scrollYProgress: MotionValue<number>;
+  fromRange: number[];
+  toRange: number[];
 }
 
-export const BlindItem: React.FC<BlindItemProps> = ({
+const BlindItem = ({
   content,
-  revealProgress,
-}) => {
+  scrollYProgress,
+  fromRange,
+  toRange,
+}: BlindItemProps) => {
+  const revealProgress = useTransform(scrollYProgress, fromRange, toRange, {
+    clamp: true,
+  });
+
   const scaleY = useTransform(revealProgress, [0, 1], [0, 1]);
 
   return (
@@ -36,3 +44,5 @@ export const BlindItem: React.FC<BlindItemProps> = ({
     </div>
   );
 };
+
+export default BlindItem;
