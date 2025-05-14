@@ -1,7 +1,7 @@
 import type { MotionValue } from "framer-motion";
 import type { ReactNode } from "react";
 
-import { motion, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useTransform } from "framer-motion";
 import React from "react";
 import "./BlindList.css";
 
@@ -24,9 +24,24 @@ const BlindItem = ({
 
   const scaleY = useTransform(revealProgress, [0, 1], [0, 1]);
 
+  const [isFullyRevealed, setIsFullyRevealed] = React.useState(false);
+
+  useMotionValueEvent(revealProgress, "change", (latestValue) => {
+    const threshold = 0.999;
+
+    if (latestValue > threshold && !isFullyRevealed) {
+      setIsFullyRevealed(true);
+    } else if (latestValue < threshold && isFullyRevealed) {
+      setIsFullyRevealed(false);
+    }
+  });
+
   return (
     <div className="blind-item-wrapper">
       <motion.div
+        {...(isFullyRevealed
+          ? { whileHover: { scale: 1.05 }, whileTap: { scale: 0.95 } }
+          : {})}
         className="blind-item-clipper"
         style={{
           scaleY: scaleY,
