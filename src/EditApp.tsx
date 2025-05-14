@@ -1,6 +1,6 @@
 import type { Profile } from "./profile.type";
 
-import { addToast, Button } from "@heroui/react";
+import { addToast, Button, Link } from "@heroui/react";
 import React from "react";
 
 import baseUrl from "./api/baseUrl";
@@ -53,6 +53,8 @@ const EditApp = () => {
         <Button
           className="m-5 float-right"
           color="warning"
+          as={Link}
+          href="/"
           onPress={() => {
             changeProfile(profile);
           }}
