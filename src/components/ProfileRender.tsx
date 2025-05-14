@@ -5,6 +5,7 @@ import React from "react";
 
 import Avatar from "./animations/Avatar";
 import BlindList from "./animations/BlindList";
+import TextGenerateEffect from "./animations/TextGenerateEffect";
 
 interface RenderBoxProps {
   className?: string;
@@ -105,8 +106,10 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
           gridX={profile.introduction.gridX}
           gridY={profile.introduction.gridY}
         >
-          <p
+          <TextGenerateEffect
             className="introduction"
+            duration={0.5}
+            filter={false}
             style={{
               maxWidth:
                 gridSize *
@@ -115,14 +118,13 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
                 gridSize *
                 (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13),
             }}
-          >
-            {profile.introduction.context}
-          </p>
+            words={profile.introduction.context}
+          />
         </RenderBox>
 
         <RenderBox gridX={profile.social.gridX} gridY={profile.social.gridY}>
           <div className="social">
-          {profile.social.context.map((social) => (
+            {profile.social.context.map((social) => (
               <Button
                 key={social.id}
                 isIconOnly
@@ -130,11 +132,11 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
                 className="social-button"
                 href={social.link}
               >
-              <span className="m-auto" role="img">
-                {social.emoji}
-              </span>
-            </Button>
-          ))}
+                <span className="m-auto" role="img">
+                  {social.emoji}
+                </span>
+              </Button>
+            ))}
           </div>
         </RenderBox>
       </div>
