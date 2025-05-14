@@ -30,13 +30,6 @@ const BlindItem = ({
         className="blind-item-clipper"
         style={{
           scaleY: scaleY,
-          transformOrigin: "top center",
-          overflow: "hidden",
-          background: "#ffffff",
-          border: "1px solid #cccccc",
-          boxSizing: "border-box",
-          height: "auto",
-          minHeight: 1,
         }}
       >
         <div className="blind-item-content">{content}</div>
