@@ -65,7 +65,8 @@
   }
 
   .draggable {
-    @apply aspect-square row-span-1 col-span-1  border-4 p-5 rounded border-dotted border-blue-500 overflow-visible;
+    background-color: rgba(43, 127, 255, 0.5);
+    @apply aspect-square row-span-1 col-span-1 p-5 rounded-2xl overflow-visible;
   }
 
   .editor-button {
