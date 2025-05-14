@@ -23,6 +23,8 @@ const BlindItem = ({
   });
 
   const scaleY = useTransform(revealProgress, [0, 1], [0, 1]);
+  const translateY = useTransform(revealProgress, [0, 1], [-50, 0]);
+  const opacity = useTransform(revealProgress, [0, 1], [0, 1]);
 
   const [isFullyRevealed, setIsFullyRevealed] = React.useState(false);
 
@@ -45,6 +47,8 @@ const BlindItem = ({
         className="blind-item-clipper"
         style={{
           scaleY: scaleY,
+          translateY: translateY,
+          opacity: opacity,
         }}
       >
         <div className="blind-item-content">{content}</div>
