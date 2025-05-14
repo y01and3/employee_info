@@ -23,8 +23,27 @@ import TagsEditor from "./editor/TagsEditor";
 
 const ProfileEditor = () => {
   const { profile, dispatchProfile } = React.useContext(ProfileContext);
-  const vw = window.innerWidth;
-  const gridSize = vw >= 1280 ? vw / 20 : vw >= 768 ? vw / 10 : vw / 5;
+  const [vw, setVw] = React.useState(window.innerWidth);
+  const widthSize = React.useMemo(
+    () => (vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm"),
+    [vw]
+  );
+  const gridSize = React.useMemo(() => (vw >= 1280 ? vw / 20 : vw / 10), [vw]);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const newVw = window.innerWidth;
+
+      setVw(newVw);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
   const snapToGrid = React.useMemo(() => {
     return createSnapModifier(gridSize);
   }, [gridSize]);
@@ -74,8 +93,12 @@ const ProfileEditor = () => {
         >
           <InPlaceEditor
             className="name"
-            maxWidth={gridSize * 10}
-            minWidth={gridSize * 3}
+            maxWidth={
+              gridSize * (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15)
+            }
+            minWidth={
+              gridSize * (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 7)
+            }
             type="text"
             value={profile.name.context}
             onSave={(value) =>
