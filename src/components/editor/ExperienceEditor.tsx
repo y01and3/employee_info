@@ -1,5 +1,4 @@
 import type { Experience } from "../../profile.type";
-import type { JSX } from "react";
 
 import {
   Popover,
@@ -14,6 +13,8 @@ import {
 import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
 import React from "react";
 
+import BlindList from "../animations/BlindList";
+
 import InPlaceEditor from "./InPlaceEditor";
 
 interface ExperienceEditorProps {
@@ -26,52 +27,72 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
 
   return (
     <div className="resume">
-      {experiences
-        .map((experience) => (
-          <div key={experience.id}>
-            <InPlaceEditor
-              className="w-full text-left font-bold"
-              maxWidth="95%"
-              minWidth={100}
-              type="text"
-              value={experience.title}
-              onDelete={() => {
-                const newExperiences = experiences.filter(
-                  (exp) => exp.id !== experience.id,
-                );
-
-                onChange(newExperiences);
-              }}
-              onSave={(value) => {
-                const newExperiences = experiences.map((exp) =>
-                  exp.id === experience.id ? { ...exp, title: value } : exp,
-                );
-
-                onChange(newExperiences);
-              }}
-            />
-            <div className="flex flex-row gap-2">
+      <BlindList
+        items={experiences.map((experience) => ({
+          id: experience.id.toString(),
+          content: (
+            <div key={experience.id}>
               <InPlaceEditor
-                type="date"
-                value={new Date(experience.start).toISOString().split("T")[0]}
+                className="w-full text-left font-bold"
+                maxWidth="100%"
+                minWidth={100}
+                type="text"
+                value={experience.title}
+                onDelete={() => {
+                  const newExperiences = experiences.filter(
+                    (exp) => exp.id !== experience.id,
+                  );
+
+                  onChange(newExperiences);
+                }}
                 onSave={(value) => {
                   const newExperiences = experiences.map((exp) =>
-                    exp.id === experience.id
-                      ? { ...exp, start: Date.parse(value) }
-                      : exp,
+                    exp.id === experience.id ? { ...exp, title: value } : exp,
                   );
 
                   onChange(newExperiences);
                 }}
               />
-              -
+              <div className="flex flex-row gap-2">
+                <InPlaceEditor
+                  type="date"
+                  value={new Date(experience.start).toISOString().split("T")[0]}
+                  onSave={(value) => {
+                    const newExperiences = experiences.map((exp) =>
+                      exp.id === experience.id
+                        ? { ...exp, start: Date.parse(value) }
+                        : exp,
+                    );
+
+                    onChange(newExperiences);
+                  }}
+                />
+                -
+                <InPlaceEditor
+                  type="date"
+                  value={new Date(experience.end).toISOString().split("T")[0]}
+                  onSave={(value) => {
+                    const newExperiences = experiences.map((exp) =>
+                      exp.id === experience.id
+                        ? { ...exp, end: Date.parse(value) }
+                        : exp,
+                    );
+
+                    onChange(newExperiences);
+                  }}
+                />
+              </div>
+              <Divider className="my-5" />
               <InPlaceEditor
-                type="date"
-                value={new Date(experience.end).toISOString().split("T")[0]}
+                className="w-full text-left"
+                maxWidth="95%"
+                minWidth={100}
+                type="textarea"
+                value={experience.description ?? ""}
                 onSave={(value) => {
                   const newExperiences = experiences.map((exp) =>
                     exp.id === experience.id
-                      ? { ...exp, end: Date.parse(value) }
+                      ? { ...exp, description: value }
                       : exp,
                   );
 
@@ -79,30 +100,10 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                 }}
               />
             </div>
-            <Divider className="my-5" />
-            <InPlaceEditor
-              className="w-full text-left"
-              maxWidth="95%"
-              minWidth={100}
-              type="textarea"
-              value={experience.description ?? ""}
-              onSave={(value) => {
-                const newExperiences = experiences.map((exp) =>
-                  exp.id === experience.id
-                    ? { ...exp, description: value }
-                    : exp,
-                );
-
-                onChange(newExperiences);
-              }}
-            />
-          </div>
-        ))
-        .reduce(
-          (prev, curr, index) =>
-            prev.length > 0 ? [...prev, <Divider key={index} />, curr] : [curr],
-          [] as JSX.Element[],
-        )}
+          ),
+        }))}
+        speed={5}
+      />
       <Popover
         showArrow
         isOpen={isOpen}
