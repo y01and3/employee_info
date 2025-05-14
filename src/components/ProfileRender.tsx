@@ -148,7 +148,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
             </div>
           ),
         }))}
-        speed={1.5}
+        speed={1.25}
       />
     </div>
   );
