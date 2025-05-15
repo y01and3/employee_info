@@ -22,8 +22,8 @@ const defaultProfile: Profile = {
       "👋 Hi there! I'm Alice White, a passionate full-stack developer with 5+ years of experience in building scalable web applications.",
   },
   social: {
-    x: 40,
-    y: 60,
+    x: 52,
+    y: 56,
     context: [
       { id: 1, emoji: "🐦", link: "https://twitter.com/alicewhite" },
       { id: 2, emoji: "💼", link: "https://linkedin.com/in/alicewhite" },

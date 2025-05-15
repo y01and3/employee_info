@@ -33,7 +33,7 @@ const InPlaceEditor = ({
   const [inputValue, setInputValue] = React.useState(value);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     setInputValue(e.target.value);
   };
