@@ -1,6 +1,6 @@
 import type { Profile } from "./profile.type";
 
-import { addToast } from "@heroui/react";
+import { addToast, Button, Link } from "@heroui/react";
 import React from "react";
 
 import baseUrl from "./api/baseUrl";
@@ -38,9 +38,19 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col items-center justify-center relative bg-gray-200">
+      <div className="fixed top-0 right-0 w-fit z-50">
+        <Button
+          as={Link}
+          className="m-5 float-right hover:scale-115 hover:transition-transform hover:duration-200"
+          color="default"
+          href="/#/edit"
+        >
+          Edit
+        </Button>
+      </div>
       <ProfileRender profile={profile} />
-    </>
+    </div>
   );
 }
 
