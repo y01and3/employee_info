@@ -54,7 +54,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center relative bg-gray-200">
+    <div className="flex flex-col gap-2 items-center justify-center relative">
       <div className="grid-box">
         <RenderBox gridX={profile.name.gridX} gridY={profile.name.gridY}>
           <Name
@@ -168,6 +168,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         }))}
         speed={widthSize === "xl" ? 2 : 1.5}
       />
+      <div className="p-[15vh]" />
     </div>
   );
 };
