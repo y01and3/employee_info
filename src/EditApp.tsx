@@ -67,6 +67,12 @@ const EditApp = () => {
           color="danger"
           onPress={() => {
             changeProfile(defaultProfile);
+            dispatchProfile({ type: "FLASH", payload: defaultProfile });
+            addToast({
+              title: "Profile reset",
+              description: "Profile has been reset to default.",
+              color: "success",
+            });
           }}
         >
           Back to Default
