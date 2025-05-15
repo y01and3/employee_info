@@ -60,6 +60,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
           <Name
             className="name"
             style={{
+              fontSize: widthSize === "sm" ? "12vw" : "8vw",
               maxWidth:
                 gridSize *
                 (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15),

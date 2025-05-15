@@ -28,7 +28,7 @@
   }
 
   .name {
-    @apply text-7xl md:text-9xl font-bold tracking-tight text-gray-900 whitespace-nowrap;
+    @apply font-bold tracking-tight text-gray-900 whitespace-nowrap;
   }
 
   .tags {
