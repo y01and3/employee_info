@@ -2,12 +2,12 @@ import type { Profile } from "./profile.type";
 
 import { addToast, Button } from "@heroui/react";
 import React from "react";
+import { Link } from "react-router";
 
 import baseUrl from "./api/baseUrl";
 import getProfile from "./api/getProfile";
 import ProfileRender from "./components/ProfileRender";
 import { defaultProfile } from "./hooks/profileContext";
-import { Link } from "react-router";
 
 function App() {
   const [profile, setProfile] = React.useState<Profile>(defaultProfile);
