@@ -1,12 +1,13 @@
 import type { Profile } from "./profile.type";
 
-import { addToast, Button, Link } from "@heroui/react";
+import { addToast, Button } from "@heroui/react";
 import React from "react";
 
 import baseUrl from "./api/baseUrl";
 import getProfile from "./api/getProfile";
 import ProfileRender from "./components/ProfileRender";
 import { defaultProfile } from "./hooks/profileContext";
+import { Link } from "react-router";
 
 function App() {
   const [profile, setProfile] = React.useState<Profile>(defaultProfile);
@@ -44,7 +45,7 @@ function App() {
           as={Link}
           className="m-5 float-right hover:scale-115 hover:transition-transform hover:duration-200"
           color="default"
-          href="/#/edit"
+          to="/edit"
         >
           Edit
         </Button>

@@ -1,7 +1,8 @@
 import type { Profile } from "./profile.type";
 
-import { addToast, Button, Link } from "@heroui/react";
+import { addToast, Button } from "@heroui/react";
 import React from "react";
+import { Link } from "react-router";
 
 import baseUrl from "./api/baseUrl";
 import editProfile from "./api/editProfile";
@@ -54,12 +55,21 @@ const EditApp = () => {
           as={Link}
           className="m-5 float-right"
           color="warning"
-          href="/"
+          to="/"
           onPress={() => {
             changeProfile(profile);
           }}
         >
           Confirm Edit
+        </Button>
+        <Button
+          className="m-5 float-right"
+          color="danger"
+          onPress={() => {
+            changeProfile(defaultProfile);
+          }}
+        >
+          Back to Default
         </Button>
       </div>
       <ProfileProvider value={{ profile, dispatchProfile }}>
