@@ -4,26 +4,20 @@ import React from "react";
 
 interface DraggableBoxProps {
   id: string;
-  gridX?: number;
-  gridY?: number;
+  x?: number;
+  y?: number;
   className?: string;
   children?: React.ReactNode;
 }
 
-const DraggableBox = ({
-  id,
-  gridX,
-  gridY,
-  children,
-  className,
-}: DraggableBoxProps) => {
+const DraggableBox = ({ id, x, y, children, className }: DraggableBoxProps) => {
   const { attributes, listeners, isDragging, setNodeRef, transform } =
     useDraggable({
       id,
     });
   const style = {
-    gridColumnStart: gridX,
-    gridRowStart: gridY,
+    top: y,
+    left: x,
     transform: CSS.Translate.toString(transform),
   };
 

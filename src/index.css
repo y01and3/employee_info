@@ -19,12 +19,12 @@
 }
 
 @layer utilities {
-  .grid-box {
-    @apply w-[100vw] h-[200vw] md:h-[100vw] xl:h-[50vw] grid aspect-square grid-cols-5 md:grid-cols-10 xl:grid-cols-20 gap-0 auto-rows-[20vw] md:auto-rows-[10vw] xl:auto-rows-[5vw] overflow-hidden;
+  .first-box {
+    @apply w-[100vw] h-[200vw] md:h-[100vw] xl:h-[50vw] overflow-hidden;
   }
 
   .render-box {
-    @apply aspect-square row-span-1 col-span-1 p-5 overflow-visible;
+    @apply p-5 overflow-visible absolute;
   }
 
   .name {
@@ -66,7 +66,7 @@
 
   .draggable {
     background-color: rgba(43, 127, 255, 0.5);
-    @apply aspect-square row-span-1 col-span-1 p-5 rounded-2xl overflow-visible;
+    @apply absolute p-5 rounded-2xl overflow-visible;
   }
 
   .editor-button {

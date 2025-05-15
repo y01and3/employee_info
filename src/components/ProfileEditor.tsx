@@ -8,7 +8,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { createSnapModifier, restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import React from "react";
 
 import { ProfileContext } from "../hooks/profileContext";
@@ -24,11 +24,12 @@ import TagsEditor from "./editor/TagsEditor";
 const ProfileEditor = () => {
   const { profile, dispatchProfile } = React.useContext(ProfileContext);
   const [vw, setVw] = React.useState(window.innerWidth);
-  const widthSize = React.useMemo(
-    () => (vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm"),
-    [vw],
-  );
-  const gridSize = React.useMemo(() => (vw >= 1280 ? vw / 20 : vw / 10), [vw]);
+  const { widthSize, percent } = React.useMemo(() => {
+    const widthSize = vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm";
+    const percent = widthSize === "sm" ? 50 : widthSize === "md" ? 100 : 200;
+
+    return { widthSize, percent };
+  }, [vw]);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -39,14 +40,10 @@ const ProfileEditor = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Cleanup listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
-  const snapToGrid = React.useMemo(() => {
-    return createSnapModifier(gridSize);
-  }, [gridSize]);
 
   const mouseSensor = useSensor(MouseSensor, {
     activationConstraint: {
@@ -73,32 +70,29 @@ const ProfileEditor = () => {
       type: "POSITION",
       payload: {
         key: id,
-        gridX: Math.ceil(event.delta.x / gridSize),
-        gridY: Math.ceil(event.delta.y / gridSize),
+        x: Math.ceil((event.delta.x / vw) * 100),
+        y: Math.ceil((event.delta.y / vw) * percent),
       },
     });
   };
 
   return (
     <DndContext
-      modifiers={[snapToGrid, restrictToWindowEdges]}
+      modifiers={[restrictToWindowEdges]}
       sensors={sensors}
       onDragEnd={handleDragEnd}
     >
-      <DroppableArea className="grid-box" id="droppable">
+      <DroppableArea className="first-box" id="droppable">
         <DraggableBox
-          gridX={profile.name.gridX}
-          gridY={profile.name.gridY}
           id="name"
+          x={(vw * profile.name.x) / 100}
+          y={(vw * profile.name.y) / percent}
         >
           <InPlaceEditor
             className="name"
-            maxWidth={
-              gridSize * (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15)
-            }
-            minWidth={
-              gridSize * (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 7)
-            }
+            fontSize={widthSize === "sm" ? "12vw" : "8vw"}
+            maxWidth={widthSize === "sm" ? "80vw" : "40vw"}
+            minWidth={widthSize === "sm" ? "15vw" : "7vw"}
             type="text"
             value={profile.name.context}
             onSave={(value) =>
@@ -111,9 +105,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          gridX={profile.avatar.gridX}
-          gridY={profile.avatar.gridY}
           id="avatar"
+          x={(vw * profile.avatar.x) / 100}
+          y={(vw * profile.avatar.y) / percent}
         >
           <AvatarEditor
             avatar={profile.avatar.context}
@@ -127,17 +121,13 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          gridX={profile.tag.gridX}
-          gridY={profile.tag.gridY}
           id="tag"
+          x={(vw * profile.tag.x) / 100}
+          y={(vw * profile.tag.y) / percent}
         >
           <TagsEditor
-            maxWidth={
-              gridSize * (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15)
-            }
-            minWidth={
-              gridSize * (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13)
-            }
+            maxWidth={widthSize === "sm" ? "15vw" : "10vw"}
+            minWidth={widthSize === "sm" ? "10vw" : "7vw"}
             tags={profile.tag.context}
             onChange={(tags) =>
               dispatchProfile({
@@ -149,18 +139,14 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          gridX={profile.introduction.gridX}
-          gridY={profile.introduction.gridY}
           id="introduction"
+          x={(vw * profile.introduction.x) / 100}
+          y={(vw * profile.introduction.y) / percent}
         >
           <InPlaceEditor
             className="introduction"
-            maxWidth={
-              gridSize * (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15)
-            }
-            minWidth={
-              gridSize * (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13)
-            }
+            maxWidth={widthSize === "sm" ? "60vw" : "40vw"}
+            minWidth={widthSize === "sm" ? "55vw" : "35vw"}
             type="textarea"
             value={profile.introduction.context}
             onSave={(value) =>
@@ -173,9 +159,9 @@ const ProfileEditor = () => {
         </DraggableBox>
 
         <DraggableBox
-          gridX={profile.social.gridX}
-          gridY={profile.social.gridY}
           id="social"
+          x={(vw * profile.social.x) / 100}
+          y={(vw * profile.social.y) / percent}
         >
           <SocialEditor
             socials={profile.social.context}
@@ -189,7 +175,7 @@ const ProfileEditor = () => {
         </DraggableBox>
       </DroppableArea>
       <ExperienceEditor
-        experiences={profile.resume.context}
+        experiences={profile.resume}
         onChange={(experiences) =>
           dispatchProfile({
             type: "DATA",

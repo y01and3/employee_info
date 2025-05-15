@@ -4,12 +4,12 @@ interface Profile {
   tag: Item<Tag[]>;
   introduction: Item<string>;
   social: Item<Social[]>;
-  resume: Item<Experience[]>;
+  resume: Experience[];
 }
 
 interface Item<T> {
-  gridX: number;
-  gridY: number;
+  x: number;
+  y: number;
   context: T;
 }
 

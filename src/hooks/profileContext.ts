@@ -4,11 +4,11 @@ import type { EditProfileAction } from "./editProfileReducer";
 import React from "react";
 
 const defaultProfile: Profile = {
-  name: { gridX: 3, gridY: 5, context: "Alice White" },
-  avatar: { gridX: 2, gridY: 1, context: "https://i.pravatar.cc/1200" },
+  name: { x: 10, y: 43, context: "Alice White" },
+  avatar: { x: 10, y: 0, context: "https://i.pravatar.cc/1200" },
   tag: {
-    gridX: 14,
-    gridY: 2,
+    x: 56,
+    y: 25,
     context: [
       { id: 1, emoji: "👩‍💻", text: "Full-Stack Developer" },
       { id: 2, emoji: "🎨", text: "UI/UX Designer" },
@@ -16,14 +16,14 @@ const defaultProfile: Profile = {
     ],
   },
   introduction: {
-    gridX: 3,
-    gridY: 7,
+    x: 11,
+    y: 63,
     context:
       "👋 Hi there! I'm Alice White, a passionate full-stack developer with 5+ years of experience in building scalable web applications.",
   },
   social: {
-    gridX: 12,
-    gridY: 4,
+    x: 40,
+    y: 60,
     context: [
       { id: 1, emoji: "🐦", link: "https://twitter.com/alicewhite" },
       { id: 2, emoji: "💼", link: "https://linkedin.com/in/alicewhite" },
@@ -31,28 +31,24 @@ const defaultProfile: Profile = {
       { id: 4, emoji: "🌐", link: "https://alicewhite.dev" },
     ],
   },
-  resume: {
-    gridX: 6,
-    gridY: 10,
-    context: [
-      {
-        id: 1,
-        start: 1622505600000,
-        end: 1685664000000,
-        title: "Senior Software Engineer at TechCorp",
-        description:
-          "💻 Led a team of developers to build a high-performance e-commerce platform, improving load times by 30%.",
-      },
-      {
-        id: 2,
-        start: 1590969600000,
-        end: 1622505600000,
-        title: "UI/UX Designer at CreativeStudio",
-        description:
-          "🎨 Designed and implemented user-friendly interfaces for a variety of web and mobile applications.",
-      },
-    ],
-  },
+  resume: [
+    {
+      id: 1,
+      start: 1622505600000,
+      end: 1685664000000,
+      title: "Senior Software Engineer at TechCorp",
+      description:
+        "💻 Led a team of developers to build a high-performance e-commerce platform, improving load times by 30%.",
+    },
+    {
+      id: 2,
+      start: 1590969600000,
+      end: 1622505600000,
+      title: "UI/UX Designer at CreativeStudio",
+      description:
+        "🎨 Designed and implemented user-friendly interfaces for a variety of web and mobile applications.",
+    },
+  ],
 };
 
 const ProfileContext = React.createContext<{

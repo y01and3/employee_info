@@ -1,13 +1,13 @@
-import type { Experience, Profile, Social, Tag } from "../profile.type";
+import type { Experience, Item, Profile, Social, Tag } from "../profile.type";
 import type React from "react";
 
 export type EditProfileAction =
   | {
       type: "POSITION";
       payload: {
-        key: keyof Profile;
-        gridX: number;
-        gridY: number;
+        key: Omit<keyof Profile, "resume">;
+        x: number;
+        y: number;
       };
     }
   | {
@@ -28,14 +28,15 @@ const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
 ) => {
   switch (action.type) {
     case "POSITION": {
-      const { key, gridX, gridY } = action.payload;
+      const { key, x, y } = action.payload;
+      const key_profile = key as keyof Profile;
 
       return {
         ...state,
-        [key]: {
-          ...state[key],
-          gridX: gridX + state[key].gridX,
-          gridY: gridY + state[key].gridY,
+        [key_profile]: {
+          ...state[key_profile],
+          x: x + (state[key_profile] as Item<unknown>).x,
+          y: y + (state[key_profile] as Item<unknown>).y,
         },
       };
     }

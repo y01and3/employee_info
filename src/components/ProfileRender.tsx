@@ -10,16 +10,19 @@ import TextGenerateEffect from "./animations/TextGenerateEffect";
 
 interface RenderBoxProps {
   className?: string;
-  gridX: number;
-  gridY: number;
+  x: number;
+  y: number;
   children?: React.ReactNode;
 }
 
-const RenderBox = ({ className, gridX, gridY, children }: RenderBoxProps) => {
+const RenderBox = ({ className, x, y, children }: RenderBoxProps) => {
   return (
     <div
       className={`render-box ${className ?? ""}`}
-      style={{ gridColumnStart: gridX, gridRowStart: gridY }}
+      style={{
+        top: y,
+        left: x,
+      }}
     >
       <div className="w-fit h-fit">{children}</div>
     </div>
@@ -32,11 +35,12 @@ interface ProfileRenderProps {
 
 const ProfileRender = ({ profile }: ProfileRenderProps) => {
   const [vw, setVw] = React.useState(window.innerWidth);
-  const widthSize = React.useMemo(
-    () => (vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm"),
-    [vw],
-  );
-  const gridSize = React.useMemo(() => (vw >= 1280 ? vw / 20 : vw / 10), [vw]);
+  const { widthSize, percent } = React.useMemo(() => {
+    const widthSize = vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm";
+    const percent = widthSize === "sm" ? 50 : widthSize === "md" ? 100 : 200;
+
+    return { widthSize, percent };
+  }, [vw]);
 
   React.useEffect(() => {
     const handleResize = () => {
@@ -55,38 +59,39 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
 
   return (
     <div className="flex flex-col gap-2 items-center justify-center relative">
-      <div className="grid-box">
-        <RenderBox gridX={profile.name.gridX} gridY={profile.name.gridY}>
+      <div className="first-box">
+        <RenderBox
+          x={(profile.name.x * vw) / 100}
+          y={(profile.name.y * vw) / percent}
+        >
           <Name
             className="name"
             style={{
               fontSize: widthSize === "sm" ? "12vw" : "8vw",
-              maxWidth:
-                gridSize *
-                (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15),
-              minWidth:
-                gridSize *
-                (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13),
+              maxWidth: widthSize === "sm" ? "20vw" : "10vw",
+              minWidth: widthSize === "sm" ? "15vw" : "7vw",
             }}
           >
             {profile.name.context}
           </Name>
         </RenderBox>
 
-        <RenderBox gridX={profile.avatar.gridX} gridY={profile.avatar.gridY}>
+        <RenderBox
+          x={(profile.avatar.x * vw) / 100}
+          y={(profile.avatar.y * vw) / percent}
+        >
           <Avatar className="avatar" src={profile.avatar.context} />
         </RenderBox>
 
-        <RenderBox gridX={profile.tag.gridX} gridY={profile.tag.gridY}>
+        <RenderBox
+          x={(profile.tag.x * vw) / 100}
+          y={(profile.tag.y * vw) / percent}
+        >
           <div
             className="tags"
             style={{
-              maxWidth:
-                gridSize *
-                (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15),
-              minWidth:
-                gridSize *
-                (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13),
+              maxWidth: widthSize === "sm" ? "20vw" : "10vw",
+              minWidth: widthSize === "sm" ? "15vw" : "7vw",
             }}
           >
             {profile.tag.context.map((tag) => (
@@ -108,27 +113,32 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         </RenderBox>
 
         <RenderBox
-          gridX={profile.introduction.gridX}
-          gridY={profile.introduction.gridY}
+          x={(profile.introduction.x * vw) / 100}
+          y={(profile.introduction.y * vw) / percent}
         >
           <TextGenerateEffect
             className="introduction"
             duration={0.5}
             filter={false}
             style={{
-              maxWidth:
-                gridSize *
-                (widthSize === "sm" ? 3 : widthSize === "md" ? 7 : 15),
-              minWidth:
-                gridSize *
-                (widthSize === "sm" ? 2 : widthSize === "md" ? 5 : 13),
+              maxWidth: widthSize === "sm" ? "60vw" : "45vw",
+              minWidth: widthSize === "sm" ? "55vw" : "43vw",
             }}
             words={profile.introduction.context}
           />
         </RenderBox>
 
-        <RenderBox gridX={profile.social.gridX} gridY={profile.social.gridY}>
-          <div className="social">
+        <RenderBox
+          x={(profile.social.x * vw) / 100}
+          y={(profile.social.y * vw) / percent}
+        >
+          <div
+            className="social"
+            style={{
+              maxWidth: widthSize === "sm" ? "15vw" : "10vw",
+              minWidth: widthSize === "sm" ? "10vw" : "7vw",
+            }}
+          >
             {profile.social.context.map((social) => (
               <Button
                 key={social.id}
@@ -146,9 +156,11 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         </RenderBox>
       </div>
 
+      <div className="p-[3vh]" />
+
       <BlindList
         className="resume"
-        items={profile.resume.context.map((experience) => ({
+        items={profile.resume.map((experience) => ({
           id: experience.id.toString(),
           content: (
             <div key={experience.id}>

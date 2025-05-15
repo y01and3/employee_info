@@ -5,6 +5,7 @@ interface InPlaceEditProps {
   type: "text" | "textarea" | "date";
   value: string;
   className?: string;
+  fontSize?: number | string;
   minWidth?: number | string;
   maxWidth?: number | string;
   minLines?: number;
@@ -19,6 +20,7 @@ const InPlaceEditor = ({
   type,
   value,
   className,
+  fontSize,
   minWidth,
   maxWidth,
   maxLines,
@@ -31,7 +33,7 @@ const InPlaceEditor = ({
   const [inputValue, setInputValue] = React.useState(value);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setInputValue(e.target.value);
   };
@@ -43,6 +45,8 @@ const InPlaceEditor = ({
           className={className}
           style={{
             display: type !== "textarea" ? "inline-block" : "block",
+            fontSize: fontSize,
+            lineHeight: type === "textarea" ? "1.5rem" : "1.2rem",
             minWidth: minWidth,
             maxWidth: maxWidth,
             maxLines: maxLines,
@@ -65,6 +69,8 @@ const InPlaceEditor = ({
               className
             }
             style={{
+              fontSize: fontSize,
+              lineHeight: "1.2rem",
               minWidth: minWidth,
               maxWidth: maxWidth,
             }}
@@ -81,6 +87,8 @@ const InPlaceEditor = ({
               className
             }
             style={{
+              fontSize: fontSize,
+              lineHeight: "1.5rem",
               minWidth: minWidth,
               maxWidth: maxWidth,
               maxLines: maxLines,
