@@ -33,6 +33,7 @@ const TagsEditor = ({
       {tags.map((tag) => (
         <Chip
           key={tag.id}
+          className="tag"
           color="secondary"
           startContent={
             <span className="ml-1 my-auto" role="img">
@@ -43,7 +44,7 @@ const TagsEditor = ({
         >
           <InPlaceEditor
             className="inline"
-            maxWidth={100}
+            maxWidth={200}
             minWidth={30}
             type="text"
             value={tag.text}
