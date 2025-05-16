@@ -5,7 +5,7 @@ import axios from "axios";
 import baseUrl from "./baseUrl";
 
 const config: CreateAxiosDefaults = {
-  baseURL: baseUrl,
+  baseURL: baseUrl + "/api",
 };
 
 export default axios.create(config);

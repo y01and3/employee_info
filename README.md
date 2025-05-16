@@ -4,16 +4,17 @@
 
 <h2 id="english">English</h2>
 
-A React application for displaying and editing employee information.
+A React application for displaying and editing employee information with drag-and-drop layout capabilities.
 
 ## Features
 
-- 📝 Personal information display
-- 🏷️ Custom tag management
-- 🌐 Social media links
-- 📅 Work experience timeline
+- 📝 Interactive personal information display
+- 🏷️ Custom tag management with emoji support 
+- 🌐 Social media links management
+- 📅 Work experience timeline with descriptions
 - 🎨 Drag-and-drop layout editing
 - 💾 Local/Remote data storage
+- 📱 Responsive design support
 
 ## Tech Stack
 
@@ -22,6 +23,7 @@ A React application for displaying and editing employee information.
 - Tailwind CSS
 - HeroUI Components
 - React Router
+- Framer Motion
 
 ## Quick Start
 
@@ -37,7 +39,7 @@ yarn install
 yarn dev
 ```
 
-### Production Build
+### Production Build 
 
 ```bash
 yarn build
@@ -49,7 +51,10 @@ yarn build
 src/
 ├── api/          # API requests
 ├── components/   # React components
-└── hooks/        # Custom hooks
+│   ├── animations/  # Animation components
+│   └── editor/     # Editor components
+├── hooks/        # Custom hooks
+└── types/        # TypeScript types
 ```
 
 ## Configuration
@@ -59,7 +64,7 @@ src/
 Edit src/api/baseUrl.ts:
 
 ```typescript
-const baseUrl = your api addr;
+const baseUrl = "your api addr";
 
 export default baseUrl;
 ```
@@ -82,19 +87,20 @@ Returns the employee profile information.
 
 ```json
 {
+  "backgroundColor": string,
   "name": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": string
   },
   "avatar": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": string
   },
   "tag": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": [
       {
         "id": number,
@@ -104,13 +110,13 @@ Returns the employee profile information.
     ]
   },
   "introduction": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": string
   },
   "social": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": [
       {
         "id": number,
@@ -119,18 +125,15 @@ Returns the employee profile information.
       }
     ]
   },
-  "resume": {
-    "top": number,
-    "left": number,
-    "context": [
-      {
-        "id": number,
-        "start": number, // millisecond timestamp
-        "end": number, // millisecond timestamp
-        "title": string
-      }
-    ]
-  }
+  "resume": [
+    {
+      "id": number,
+      "start": number,
+      "end": number, 
+      "title": string,
+      "description": string
+    }
+  ]
 }
 ```
 
@@ -153,21 +156,17 @@ Returns 200 on success.
 ## Todo
 
 - [ ]  Image Management
-
   - [X]  Avatar management
   - [ ]  Image gallery
 - [ ]  Appearance Customization
-
   - [ ]  Custom fonts
-  - [ ]  Theme colors
+  - [X]  Theme colors
   - [ ]  Dark mode
-- [ ]  Responsive Design
-
-  - [ ]  Mobile-first layout
-  - [ ]  Tablet optimization
-  - [ ]  Desktop enhancement
+- [X]  Responsive Design
+  - [X]  Mobile layout
+  - [X]  Tablet optimization
+  - [X]  Desktop enhancement
 - [ ]  Blog Integration
-
   - [ ]  External blog display
 
 ---
@@ -178,12 +177,13 @@ Returns 200 on success.
 
 ## 功能特点
 
-- 📝 个人信息展示
-- 🏷️ 自定义标签管理
-- 🌐 社交媒体链接
-- 📅 工作经历时间线
+- 📝 交互式个人信息展示
+- 🏷️ 支持表情符号的自定义标签管理
+- 🌐 社交媒体链接管理
+- 📅 带描述的工作经历时间线
 - 🎨 拖拽式布局编辑
 - 💾 本地/远程数据存储
+- 📱 响应式设计支持
 
 ## 技术栈
 
@@ -219,17 +219,20 @@ yarn build
 src/
 ├── api/          # API 请求相关
 ├── components/   # React 组件
-└── hooks/        # 自定义 Hooks
+│   ├── animations/  # 动画组件
+│   └── editor/     # 编辑器组件
+├── hooks/        # 自定义 Hooks
+└── types/        # TypeScript 类型
 ```
 
 ## 配置说明
 
 ### 设置 Api
 
-修改 src/api/baseUrl.ts ：
+修改 src/api/baseUrl.ts：
 
 ```typescript
-const baseUrl = 你的 Api 地址;
+const baseUrl = "你的 Api 地址";
 
 export default baseUrl;
 ```
@@ -252,19 +255,20 @@ GET /api/profile
 
 ```json
 {
+  "backgroundColor": string,
   "name": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": string
   },
   "avatar": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": string
   },
   "tag": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": [
       {
         "id": number,
@@ -274,13 +278,13 @@ GET /api/profile
     ]
   },
   "introduction": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": string
   },
   "social": {
-    "top": number,
-    "left": number,
+    "x": number,
+    "y": number,
     "context": [
       {
         "id": number,
@@ -289,18 +293,15 @@ GET /api/profile
       }
     ]
   },
-  "resume": {
-    "top": number,
-    "left": number,
-    "context": [
-      {
-        "id": number,
-        "start": number, // 毫秒级时间戳
-        "end": number, // 毫秒级时间戳
-        "title": string
-      }
-    ]
-  }
+  "resume": [
+    {
+      "id": number,
+      "start": number,
+      "end": number,
+      "title": string,
+      "description": string
+    }
+  ]
 }
 ```
 
@@ -323,19 +324,15 @@ PUT /api/profile
 ## Todo
 
 - [ ]  图片上传功能
-
   - [X]  头像管理
   - [ ]  图片库
 - [ ]  外观定制
-
   - [ ]  自定义字体
-  - [ ]  主题颜色
+  - [X]  背景颜色
   - [ ]  暗色模式
-- [ ]  响应式设计
-
-  - [ ]  移动端优先布局
-  - [ ]  平板适配
-  - [ ]  桌面端优化
+- [X]  响应式设计
+  - [X]  移动端布局
+  - [X]  平板适配
+  - [X]  桌面端优化
 - [ ]  博客展示
-
   - [ ]  外链博客展示
