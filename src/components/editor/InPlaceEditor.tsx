@@ -46,7 +46,6 @@ const InPlaceEditor = ({
           style={{
             display: type !== "textarea" ? "inline-block" : "block",
             fontSize: fontSize,
-            lineHeight: type === "textarea" ? "1.5rem" : "1.2rem",
             minWidth: minWidth,
             maxWidth: maxWidth,
             maxLines: maxLines,
@@ -70,7 +69,6 @@ const InPlaceEditor = ({
             }
             style={{
               fontSize: fontSize,
-              lineHeight: "1.2rem",
               minWidth: minWidth,
               maxWidth: maxWidth,
             }}
@@ -88,7 +86,6 @@ const InPlaceEditor = ({
             }
             style={{
               fontSize: fontSize,
-              lineHeight: "1.5rem",
               minWidth: minWidth,
               maxWidth: maxWidth,
               maxLines: maxLines,

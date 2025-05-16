@@ -8,7 +8,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { restrictToParentElement } from "@dnd-kit/modifiers";
 import React from "react";
 
 import { ProfileContext } from "../hooks/profileContext";
@@ -26,7 +26,8 @@ const ProfileEditor = () => {
   const [vw, setVw] = React.useState(window.innerWidth);
   const { widthSize, percent } = React.useMemo(() => {
     const widthSize = vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm";
-    const percent = widthSize === "sm" ? 50 : widthSize === "md" ? 100 : 200;
+    const percent =
+      widthSize === "sm" ? vw / 50 : widthSize === "md" ? vw / 100 : 1280 / 100;
 
     return { widthSize, percent };
   }, [vw]);
@@ -71,28 +72,31 @@ const ProfileEditor = () => {
       payload: {
         key: id,
         x: Math.ceil((event.delta.x / vw) * 100),
-        y: Math.ceil((event.delta.y / vw) * percent),
+        y: Math.ceil(event.delta.y / percent),
       },
     });
   };
 
   return (
     <DndContext
-      modifiers={[restrictToWindowEdges]}
+      modifiers={[restrictToParentElement]}
       sensors={sensors}
       onDragEnd={handleDragEnd}
     >
-      <DroppableArea className="first-box" id="droppable">
+      <DroppableArea
+        className="first-box border-b-1 border-x-1 border-dashed"
+        id="droppable"
+      >
         <DraggableBox
           id="name"
-          x={(vw * profile.name.x) / 100}
-          y={(vw * profile.name.y) / percent}
+          x={((vw >= 1280 ? 1280 : vw) * profile.name.x) / 100}
+          y={profile.name.y * percent}
         >
           <InPlaceEditor
             className="name"
-            fontSize={widthSize === "sm" ? "12vw" : "8vw"}
-            maxWidth={widthSize === "sm" ? "80vw" : "40vw"}
-            minWidth={widthSize === "sm" ? "15vw" : "7vw"}
+            fontSize={widthSize === "sm" ? "12vw" : 11 * percent}
+            maxWidth={widthSize === "sm" ? "80vw" : 60 * percent}
+            minWidth={widthSize === "sm" ? "15vw" : 7 * percent}
             type="text"
             value={profile.name.context}
             onSave={(value) =>
@@ -106,8 +110,8 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="avatar"
-          x={(vw * profile.avatar.x) / 100}
-          y={(vw * profile.avatar.y) / percent}
+          x={((vw >= 1280 ? 1280 : vw) * profile.avatar.x) / 100}
+          y={profile.avatar.y * percent}
         >
           <AvatarEditor
             avatar={profile.avatar.context}
@@ -122,12 +126,12 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="tag"
-          x={(vw * profile.tag.x) / 100}
-          y={(vw * profile.tag.y) / percent}
+          x={((vw >= 1280 ? 1280 : vw) * profile.tag.x) / 100}
+          y={profile.tag.y * percent}
         >
           <TagsEditor
-            maxWidth={widthSize === "sm" ? "15vw" : "10vw"}
-            minWidth={widthSize === "sm" ? "10vw" : "7vw"}
+            maxWidth={widthSize === "sm" ? "20vw" : 15 * percent}
+            minWidth={widthSize === "sm" ? "15vw" : 13 * percent}
             tags={profile.tag.context}
             onChange={(tags) =>
               dispatchProfile({
@@ -140,13 +144,13 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="introduction"
-          x={(vw * profile.introduction.x) / 100}
-          y={(vw * profile.introduction.y) / percent}
+          x={((vw >= 1280 ? 1280 : vw) * profile.introduction.x) / 100}
+          y={profile.introduction.y * percent}
         >
           <InPlaceEditor
             className="introduction"
-            maxWidth={widthSize === "sm" ? "60vw" : "40vw"}
-            minWidth={widthSize === "sm" ? "55vw" : "35vw"}
+            maxWidth={widthSize === "sm" ? "60vw" : 40 * percent}
+            minWidth={widthSize === "sm" ? "55vw" : 35 * percent}
             type="textarea"
             value={profile.introduction.context}
             onSave={(value) =>
@@ -160,8 +164,8 @@ const ProfileEditor = () => {
 
         <DraggableBox
           id="social"
-          x={(vw * profile.social.x) / 100}
-          y={(vw * profile.social.y) / percent}
+          x={((vw >= 1280 ? 1280 : vw) * profile.social.x) / 100}
+          y={profile.social.y * percent}
         >
           <SocialEditor
             socials={profile.social.context}

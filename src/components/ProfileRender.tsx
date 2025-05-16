@@ -37,7 +37,8 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
   const [vw, setVw] = React.useState(window.innerWidth);
   const { widthSize, percent } = React.useMemo(() => {
     const widthSize = vw >= 1280 ? "xl" : vw >= 768 ? "md" : "sm";
-    const percent = widthSize === "sm" ? 50 : widthSize === "md" ? 100 : 200;
+    const percent =
+      widthSize === "sm" ? vw / 50 : widthSize === "md" ? vw / 100 : 1280 / 100;
 
     return { widthSize, percent };
   }, [vw]);
@@ -61,15 +62,15 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
     <div className="flex flex-col gap-2 items-center justify-center relative">
       <div className="first-box">
         <RenderBox
-          x={(profile.name.x * vw) / 100}
-          y={(profile.name.y * vw) / percent}
+          x={(profile.name.x * (vw >= 1280 ? 1280 : vw)) / 100}
+          y={profile.name.y * percent}
         >
           <Name
             className="name"
             style={{
-              fontSize: widthSize === "sm" ? "12vw" : "8vw",
-              maxWidth: widthSize === "sm" ? "20vw" : "10vw",
-              minWidth: widthSize === "sm" ? "15vw" : "7vw",
+              fontSize: widthSize === "sm" ? "12vw" : 11 * percent,
+              maxWidth: widthSize === "sm" ? "80vw" : 60 * percent,
+              minWidth: widthSize === "sm" ? "15vw" : 7 * percent,
             }}
           >
             {profile.name.context}
@@ -77,21 +78,21 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         </RenderBox>
 
         <RenderBox
-          x={(profile.avatar.x * vw) / 100}
-          y={(profile.avatar.y * vw) / percent}
+          x={(profile.avatar.x * (vw >= 1280 ? 1280 : vw)) / 100}
+          y={profile.avatar.y * percent}
         >
           <Avatar className="avatar" src={profile.avatar.context} />
         </RenderBox>
 
         <RenderBox
-          x={(profile.tag.x * vw) / 100}
-          y={(profile.tag.y * vw) / percent}
+          x={(profile.tag.x * (vw >= 1280 ? 1280 : vw)) / 100}
+          y={profile.tag.y * percent}
         >
           <div
             className="tags"
             style={{
-              maxWidth: widthSize === "sm" ? "20vw" : "10vw",
-              minWidth: widthSize === "sm" ? "15vw" : "7vw",
+              maxWidth: widthSize === "sm" ? "20vw" : 10 * percent,
+              minWidth: widthSize === "sm" ? "15vw" : 7 * percent,
             }}
           >
             {profile.tag.context.map((tag) => (
@@ -113,30 +114,30 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
         </RenderBox>
 
         <RenderBox
-          x={(profile.introduction.x * vw) / 100}
-          y={(profile.introduction.y * vw) / percent}
+          x={(profile.introduction.x * (vw >= 1280 ? 1280 : vw)) / 100}
+          y={profile.introduction.y * percent}
         >
           <TextGenerateEffect
             className="introduction"
             duration={0.5}
             filter={false}
             style={{
-              maxWidth: widthSize === "sm" ? "60vw" : "45vw",
-              minWidth: widthSize === "sm" ? "55vw" : "43vw",
+              maxWidth: widthSize === "sm" ? "60vw" : 55 * percent,
+              minWidth: widthSize === "sm" ? "55vw" : 50 * percent,
             }}
             words={profile.introduction.context}
           />
         </RenderBox>
 
         <RenderBox
-          x={(profile.social.x * vw) / 100}
-          y={(profile.social.y * vw) / percent}
+          x={(profile.social.x * (vw >= 1280 ? 1280 : vw)) / 100}
+          y={profile.social.y * percent}
         >
           <div
             className="social"
             style={{
-              maxWidth: widthSize === "sm" ? "15vw" : "10vw",
-              minWidth: widthSize === "sm" ? "10vw" : "7vw",
+              maxWidth: widthSize === "sm" ? "15vw" : 13 * percent,
+              minWidth: widthSize === "sm" ? "10vw" : 9 * percent,
             }}
           >
             {profile.social.context.map((social) => (
@@ -155,8 +156,6 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
           </div>
         </RenderBox>
       </div>
-
-      <div className="p-[3vh]" />
 
       <BlindList
         className="resume"
