@@ -21,6 +21,9 @@ function App() {
         const parsedProfile = JSON.parse(lsProfile) as Profile;
 
         applyProfile(parsedProfile, setProfile);
+        applyProfile(parsedProfile, (profile) =>
+          localStorage.setItem("profile", JSON.stringify(profile)),
+        );
       }
 
       return;
