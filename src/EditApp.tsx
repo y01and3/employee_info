@@ -8,6 +8,7 @@ import baseUrl from "./api/baseUrl";
 import editProfile from "./api/editProfile";
 import getProfile from "./api/getProfile";
 import ProfileEditor from "./components/ProfileEditor";
+import BackgroundColorEditor from "./components/editor/BackgroundColorEditor";
 import applyProfile from "./hooks/applyProfile";
 import editProfileReducer from "./hooks/editProfileReducer";
 import { defaultProfile, ProfileProvider } from "./hooks/profileContext";
@@ -54,7 +55,10 @@ const EditApp = () => {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative bg-gray-200">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center relative"
+      style={{ backgroundColor: profile.backgroundColor }}
+    >
       <div className="fixed top-0 right-0 w-fit z-50">
         <Button
           as={Link}
@@ -82,6 +86,16 @@ const EditApp = () => {
         >
           Back to Default
         </Button>
+        <BackgroundColorEditor
+          className="m-5 float-right"
+          color={profile.backgroundColor}
+          onChange={(color) => {
+            dispatchProfile({
+              type: "DATA",
+              payload: { key: "backgroundColor", data: color },
+            });
+          }}
+        />
       </div>
       <ProfileProvider value={{ profile, dispatchProfile }}>
         <ProfileEditor />

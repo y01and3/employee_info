@@ -6,7 +6,8 @@ const applyProfile = (
   data: Profile,
   setProfile: (profile: Profile) => void,
 ) => {
-  const newProfile = {
+  const newProfile: Profile = {
+    backgroundColor: data.backgroundColor ?? defaultProfile.backgroundColor,
     name: { ...defaultProfile.name, ...data.name },
     avatar: { ...defaultProfile.avatar, ...data.avatar },
     tag: { ...defaultProfile.tag, ...data.tag },

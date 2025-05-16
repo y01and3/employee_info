@@ -5,7 +5,7 @@ export type EditProfileAction =
   | {
       type: "POSITION";
       payload: {
-        key: Omit<keyof Profile, "resume">;
+        key: Omit<keyof Profile, "resume" | "backgroundColor">;
         x: number;
         y: number;
       };
@@ -31,6 +31,10 @@ const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
       const { key, x, y } = action.payload;
       const key_profile = key as keyof Profile;
 
+      if (key_profile === "backgroundColor" || key_profile === "resume") {
+        return state;
+      }
+
       return {
         ...state,
         [key_profile]: {
@@ -43,13 +47,41 @@ const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
     case "DATA": {
       const { key, data } = action.payload;
 
-      return {
-        ...state,
-        [key]: {
-          ...state[key],
-          context: data,
-        },
-      };
+      switch (key) {
+        case "backgroundColor": {
+          if (typeof data !== "string") {
+            return state;
+          }
+
+          return {
+            ...state,
+            [key]: data,
+          };
+        }
+        case "resume": {
+          if (
+            !Array.isArray(data) ||
+            !data.every(
+              (item) => "start" in item && "end" in item && "title" in item,
+            )
+          ) {
+            return state;
+          }
+
+          return {
+            ...state,
+            [key]: data,
+          };
+        }
+        default:
+          return {
+            ...state,
+            [key]: {
+              ...state[key],
+              context: data,
+            },
+          };
+      }
     }
     case "FLASH": {
       return action.payload;

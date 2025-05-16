@@ -40,7 +40,10 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative bg-gray-200">
+    <div
+      className="min-h-screen flex flex-col items-center justify-center relative"
+      style={{ backgroundColor: profile.backgroundColor }}
+    >
       <div className="fixed top-0 right-0 w-fit z-50">
         <Button
           as={Link}

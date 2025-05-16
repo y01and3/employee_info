@@ -32,7 +32,7 @@
   }
 
   .avatar {
-    @apply w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] xl:w-[30rem] xl:h-[30rem] rounded-full border-2 border-black p-[max(2vw,3vh)];
+    @apply w-[40vw] h-[40vw] md:w-[30vw] md:h-[30vw] xl:w-[25rem] xl:h-[25rem] rounded-full border-2 border-black p-[max(2vw,3vh)];
   }
 
   .tags {
@@ -46,7 +46,7 @@
     }
 
   .introduction {
-    @apply max-w-[100vw] md:max-w-[50vw] text-lg lg:text-3xl leading-relaxed text-gray-600 break-words whitespace-pre-line font-bold;
+    @apply max-w-[100vw] md:max-w-[50vw] text-lg lg:text-3xl leading-relaxed break-words whitespace-pre-line font-bold;
   }
 
   .social {

@@ -4,11 +4,12 @@ import type { EditProfileAction } from "./editProfileReducer";
 import React from "react";
 
 const defaultProfile: Profile = {
-  name: { x: 10, y: 43, context: "Alice White" },
+  backgroundColor: "#e5e7eb",
+  name: { x: 6, y: 45, context: "Alice White" },
   avatar: { x: 10, y: 0, context: "https://i.pravatar.cc/1200" },
   tag: {
-    x: 58,
-    y: 24,
+    x: 62,
+    y: 23,
     context: [
       { id: 1, emoji: "👩‍💻", text: "Full-Stack Developer" },
       { id: 2, emoji: "🎨", text: "UI/UX Designer" },
@@ -16,14 +17,14 @@ const defaultProfile: Profile = {
     ],
   },
   introduction: {
-    x: 11,
-    y: 69,
+    x: 9,
+    y: 76,
     context:
       "👋 Hi there! I'm Alice White, a passionate full-stack developer with 5+ years of experience in building scalable web applications.",
   },
   social: {
     x: 39,
-    y: 62,
+    y: 66,
     context: [
       { id: 1, emoji: "🐦", link: "https://twitter.com/alicewhite" },
       { id: 2, emoji: "💼", link: "https://linkedin.com/in/alicewhite" },

@@ -1,4 +1,5 @@
 interface Profile {
+  backgroundColor: string;
   name: Item<string>;
   avatar: Item<string>;
   tag: Item<Tag[]>;
