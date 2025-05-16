@@ -7,8 +7,8 @@ const defaultProfile: Profile = {
   name: { x: 10, y: 43, context: "Alice White" },
   avatar: { x: 10, y: 0, context: "https://i.pravatar.cc/1200" },
   tag: {
-    x: 56,
-    y: 25,
+    x: 58,
+    y: 24,
     context: [
       { id: 1, emoji: "👩‍💻", text: "Full-Stack Developer" },
       { id: 2, emoji: "🎨", text: "UI/UX Designer" },
@@ -17,13 +17,13 @@ const defaultProfile: Profile = {
   },
   introduction: {
     x: 11,
-    y: 63,
+    y: 69,
     context:
       "👋 Hi there! I'm Alice White, a passionate full-stack developer with 5+ years of experience in building scalable web applications.",
   },
   social: {
-    x: 52,
-    y: 56,
+    x: 39,
+    y: 62,
     context: [
       { id: 1, emoji: "🐦", link: "https://twitter.com/alicewhite" },
       { id: 2, emoji: "💼", link: "https://linkedin.com/in/alicewhite" },
