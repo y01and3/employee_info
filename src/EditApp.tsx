@@ -8,6 +8,7 @@ import baseUrl from "./api/baseUrl";
 import editProfile from "./api/editProfile";
 import getProfile from "./api/getProfile";
 import ProfileEditor from "./components/ProfileEditor";
+import applyProfile from "./hooks/applyProfile";
 import editProfileReducer from "./hooks/editProfileReducer";
 import { defaultProfile, ProfileProvider } from "./hooks/profileContext";
 
@@ -22,6 +23,10 @@ const EditApp = () => {
       ? localStorage.setItem("profile", JSON.stringify(profile))
       : editProfile(profile);
 
+  const setProfile = (profile: Profile) => {
+    dispatchProfile({ type: "FLASH", payload: profile });
+  };
+
   React.useEffect(() => {
     if (!baseUrl) {
       const lsProfile = localStorage.getItem("profile");
@@ -29,7 +34,7 @@ const EditApp = () => {
       if (lsProfile) {
         const parsedProfile = JSON.parse(lsProfile) as Profile;
 
-        dispatchProfile({ type: "FLASH", payload: parsedProfile });
+        applyProfile(parsedProfile, setProfile);
       }
 
       return;
@@ -37,7 +42,7 @@ const EditApp = () => {
 
     getProfile()
       .then((data: Profile) => {
-        dispatchProfile({ type: "FLASH", payload: data });
+        applyProfile(data, setProfile);
       })
       .catch((error) => {
         addToast({
@@ -67,7 +72,7 @@ const EditApp = () => {
           color="danger"
           onPress={() => {
             changeProfile(defaultProfile);
-            dispatchProfile({ type: "FLASH", payload: defaultProfile });
+            setProfile(defaultProfile);
             addToast({
               title: "Profile reset",
               description: "Profile has been reset to default.",

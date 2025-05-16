@@ -7,6 +7,7 @@ import { Link } from "react-router";
 import baseUrl from "./api/baseUrl";
 import getProfile from "./api/getProfile";
 import ProfileRender from "./components/ProfileRender";
+import applyProfile from "./hooks/applyProfile";
 import { defaultProfile } from "./hooks/profileContext";
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
       if (lsProfile) {
         const parsedProfile = JSON.parse(lsProfile) as Profile;
 
-        setProfile(parsedProfile);
+        applyProfile(parsedProfile, setProfile);
       }
 
       return;
@@ -27,7 +28,7 @@ function App() {
 
     getProfile()
       .then((data: Profile) => {
-        setProfile(data);
+        applyProfile(data, setProfile);
       })
       .catch((error) => {
         addToast({
