@@ -18,11 +18,12 @@ A React application for displaying and editing employee information with drag-an
 
 ## Tech Stack
 
-- React 18
+- React 19
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS 4
 - HeroUI Components
-- React Router
+- `@dnd-kit`
+- React Router 7
 - Framer Motion
 
 ## Quick Start
@@ -49,12 +50,12 @@ yarn build
 
 ```
 src/
-├── api/          # API requests
-├── components/   # React components
+├── api/             # API requests
+├── components/      # React components
 │   ├── animations/  # Animation components
-│   └── editor/     # Editor components
-├── hooks/        # Custom hooks
-└── types/        # TypeScript types
+│   └── editor/      # Editor components
+├── hooks/           # Context, reducer & state helpers
+└── profile.type.ts  # TypeScript type definitions
 ```
 
 ## Configuration
@@ -187,11 +188,13 @@ Returns 200 on success.
 
 ## 技术栈
 
-- React 18
+- React 19
 - TypeScript
-- Tailwind CSS
+- Tailwind CSS 4
 - HeroUI Components
-- React Router
+- `@dnd-kit`
+- React Router 7
+- Framer Motion
 
 ## 快速开始
 
@@ -217,12 +220,12 @@ yarn build
 
 ```
 src/
-├── api/          # API 请求相关
-├── components/   # React 组件
+├── api/             # API 请求相关
+├── components/      # React 组件
 │   ├── animations/  # 动画组件
-│   └── editor/     # 编辑器组件
-├── hooks/        # 自定义 Hooks
-└── types/        # TypeScript 类型
+│   └── editor/      # 编辑器组件
+├── hooks/           # Context、Reducer 与状态处理
+└── profile.type.ts  # TypeScript 类型定义
 ```
 
 ## 配置说明
