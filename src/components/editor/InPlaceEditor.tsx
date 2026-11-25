@@ -32,6 +32,11 @@ const InPlaceEditor = ({
   const [lastSubmittedValue, setLastSubmittedValue] = React.useState(value);
   const [inputValue, setInputValue] = React.useState(value);
 
+  React.useEffect(() => {
+    setInputValue(value);
+    setLastSubmittedValue(value);
+  }, [value]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
@@ -65,7 +70,7 @@ const InPlaceEditor = ({
             className={
               "border-none bg-transparent outline-0 underline underline-offset-3 absolute top-0 left-0 w-[100%] h-[100%]" +
               " " +
-              className
+              (className ?? "")
             }
             style={{
               fontSize: fontSize,
@@ -82,7 +87,7 @@ const InPlaceEditor = ({
             className={
               "border-none bg-transparent outline-0 underline underline-offset-3 absolute top-0 left-0 w-[100%] h-[100%] break-words resize-none scrollbar-hidden" +
               " " +
-              className
+              (className ?? "")
             }
             style={{
               fontSize: fontSize,
@@ -97,7 +102,9 @@ const InPlaceEditor = ({
       </div>
       {onSave && (
         <button
+          aria-label="Save"
           className="editor-button save-button"
+          type="button"
           onClick={() => {
             if (inputValue === lastSubmittedValue) {
               return;
@@ -117,8 +124,11 @@ const InPlaceEditor = ({
       )}
       {onCancel && (
         <button
+          aria-label="Cancel"
           className="editor-button cancel-button"
+          type="button"
           onClick={() => {
+            setInputValue(lastSubmittedValue);
             onCancel();
           }}
         >
@@ -133,7 +143,9 @@ const InPlaceEditor = ({
       )}
       {onDelete && (
         <button
+          aria-label="Delete"
           className="editor-button delete-button"
+          type="button"
           onClick={() => {
             onDelete();
           }}

@@ -18,12 +18,16 @@ function App() {
       const lsProfile = localStorage.getItem("profile");
 
       if (lsProfile) {
-        const parsedProfile = JSON.parse(lsProfile) as Profile;
+        try {
+          const parsedProfile = JSON.parse(lsProfile) as Partial<Profile>;
 
-        applyProfile(parsedProfile, setProfile);
-        applyProfile(parsedProfile, (profile) =>
-          localStorage.setItem("profile", JSON.stringify(profile)),
-        );
+          applyProfile(parsedProfile, (nextProfile) => {
+            setProfile(nextProfile);
+            localStorage.setItem("profile", JSON.stringify(nextProfile));
+          });
+        } catch {
+          localStorage.removeItem("profile");
+        }
       }
 
       return;

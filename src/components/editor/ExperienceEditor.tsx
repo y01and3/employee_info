@@ -10,7 +10,7 @@ import {
   Divider,
   Textarea,
 } from "@heroui/react";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { Icon } from "@iconify-icon/react";
 import React from "react";
 
 import BlindList from "../animations/BlindList";
@@ -21,6 +21,16 @@ interface ExperienceEditorProps {
   experiences: Experience[];
   onChange: (experiences: Experience[]) => void;
 }
+
+const toDateInputValue = (timestamp: number): string => {
+  const date = new Date(timestamp);
+
+  if (Number.isNaN(date.getTime())) {
+    return new Date().toISOString().split("T")[0];
+  }
+
+  return date.toISOString().split("T")[0];
+};
 
 const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -56,11 +66,16 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
               <div className="flex flex-row gap-2">
                 <InPlaceEditor
                   type="date"
-                  value={new Date(experience.start).toISOString().split("T")[0]}
+                  value={toDateInputValue(experience.start)}
                   onSave={(value) => {
+                    const parsed = Date.parse(value);
+
+                    if (Number.isNaN(parsed)) {
+                      return;
+                    }
                     const newExperiences = experiences.map((exp) =>
                       exp.id === experience.id
-                        ? { ...exp, start: Date.parse(value) }
+                        ? { ...exp, start: parsed }
                         : exp,
                     );
 
@@ -70,12 +85,15 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                 -
                 <InPlaceEditor
                   type="date"
-                  value={new Date(experience.end).toISOString().split("T")[0]}
+                  value={toDateInputValue(experience.end)}
                   onSave={(value) => {
+                    const parsed = Date.parse(value);
+
+                    if (Number.isNaN(parsed)) {
+                      return;
+                    }
                     const newExperiences = experiences.map((exp) =>
-                      exp.id === experience.id
-                        ? { ...exp, end: Date.parse(value) }
-                        : exp,
+                      exp.id === experience.id ? { ...exp, end: parsed } : exp,
                     );
 
                     onChange(newExperiences);
@@ -114,6 +132,7 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
         <PopoverTrigger>
           <Button
             isIconOnly
+            aria-label="Add experience"
             className="w-full h-[28px]"
             color="primary"
             variant="shadow"
@@ -132,14 +151,28 @@ const ExperienceEditor = ({ experiences, onChange }: ExperienceEditorProps) => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.currentTarget);
+                  const start = Date.parse(
+                    String(formData.get("start") ?? "").trim(),
+                  );
+                  const end = Date.parse(
+                    String(formData.get("end") ?? "").trim(),
+                  );
+                  const title = String(formData.get("title") ?? "").trim();
+                  const description = String(
+                    formData.get("description") ?? "",
+                  ).trim();
+
+                  if (!title || Number.isNaN(start) || Number.isNaN(end)) {
+                    return;
+                  }
                   const newExperiences = [
                     ...experiences,
                     {
                       id: Date.now(),
-                      start: Date.parse(formData.get("start") as string),
-                      end: Date.parse(formData.get("end") as string),
-                      title: formData.get("title") as string,
-                      description: formData.get("description") as string,
+                      start,
+                      end,
+                      title,
+                      description,
                     },
                   ];
 

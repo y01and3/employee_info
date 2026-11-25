@@ -1,3 +1,5 @@
+import type React from "react";
+
 import { motion, stagger, useAnimate } from "framer-motion";
 import { useEffect } from "react";
 
@@ -31,11 +33,11 @@ const TextGenerateEffect = ({
         delay: stagger(0.2),
       },
     );
-  }, [animate, filter, duration]);
+  }, [animate, filter, duration, words]);
 
   const renderWords = () => {
     return (
-      <motion.div ref={scope} className={className} style={style}>
+      <motion.div ref={scope}>
         {wordsArray.map((word, idx) => {
           return (
             <motion.span
@@ -56,7 +58,7 @@ const TextGenerateEffect = ({
   return (
     <div className={"font-bold " + (className ?? "")} style={style}>
       <div className="mt-4">
-        <div className=" dark:text-white text-black text-2xl leading-snug tracking-wide">
+        <div className="dark:text-white text-black text-2xl leading-snug tracking-wide">
           {renderWords()}
         </div>
       </div>

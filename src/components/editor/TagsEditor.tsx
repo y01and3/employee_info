@@ -8,7 +8,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@heroui/react";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { Icon } from "@iconify-icon/react";
 import React from "react";
 
 import InPlaceEditor from "./InPlaceEditor";
@@ -55,7 +55,7 @@ const TagsEditor = ({
             }}
             onSave={(value) => {
               const newTags = tags.map((t) =>
-                t.id === tag.id ? { ...t, name: value } : t,
+                t.id === tag.id ? { ...t, text: value } : t,
               );
 
               onChange(newTags);
@@ -94,12 +94,18 @@ const TagsEditor = ({
                 onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.currentTarget);
+                  const emoji = String(formData.get("emoji") ?? "").trim();
+                  const text = String(formData.get("text") ?? "").trim();
+
+                  if (!text) {
+                    return;
+                  }
                   const newTags = [
                     ...tags,
                     {
                       id: Date.now(),
-                      emoji: formData.get("emoji") as string,
-                      text: formData.get("text") as string,
+                      emoji,
+                      text,
                     },
                   ];
 

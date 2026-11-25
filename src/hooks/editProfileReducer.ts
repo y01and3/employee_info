@@ -1,21 +1,30 @@
-import type { Experience, Item, Profile, Social, Tag } from "../profile.type";
+import type { Item, Profile } from "../profile.type";
 import type React from "react";
+
+export type DraggableProfileKey = Exclude<
+  keyof Profile,
+  "resume" | "backgroundColor"
+>;
+
+export type EditDataPayload = {
+  [K in keyof Profile]: {
+    key: K;
+    data: Profile[K] extends Item<infer U> ? U : Profile[K];
+  };
+}[keyof Profile];
 
 export type EditProfileAction =
   | {
       type: "POSITION";
       payload: {
-        key: Omit<keyof Profile, "resume" | "backgroundColor">;
+        key: DraggableProfileKey;
         x: number;
         y: number;
       };
     }
   | {
       type: "DATA";
-      payload: {
-        key: keyof Profile;
-        data: string | Tag[] | Social[] | Experience[];
-      };
+      payload: EditDataPayload;
     }
   | {
       type: "FLASH";
@@ -29,58 +38,57 @@ const editProfileReducer: React.Reducer<Profile, EditProfileAction> = (
   switch (action.type) {
     case "POSITION": {
       const { key, x, y } = action.payload;
-      const key_profile = key as keyof Profile;
-
-      if (key_profile === "backgroundColor" || key_profile === "resume") {
-        return state;
-      }
 
       return {
         ...state,
-        [key_profile]: {
-          ...state[key_profile],
-          x: x + (state[key_profile] as Item<unknown>).x,
-          y: y + (state[key_profile] as Item<unknown>).y,
+        [key]: {
+          ...state[key],
+          x: x + state[key].x,
+          y: y + state[key].y,
         },
       };
     }
     case "DATA": {
-      const { key, data } = action.payload;
+      const { payload } = action;
 
-      switch (key) {
-        case "backgroundColor": {
-          if (typeof data !== "string") {
-            return state;
-          }
-
+      switch (payload.key) {
+        case "backgroundColor":
           return {
             ...state,
-            [key]: data,
+            backgroundColor: payload.data,
           };
-        }
-        case "resume": {
-          if (
-            !Array.isArray(data) ||
-            !data.every(
-              (item) => "start" in item && "end" in item && "title" in item,
-            )
-          ) {
-            return state;
-          }
-
+        case "resume":
           return {
             ...state,
-            [key]: data,
+            resume: payload.data,
           };
-        }
+        case "name":
+          return {
+            ...state,
+            name: { ...state.name, context: payload.data },
+          };
+        case "avatar":
+          return {
+            ...state,
+            avatar: { ...state.avatar, context: payload.data },
+          };
+        case "introduction":
+          return {
+            ...state,
+            introduction: { ...state.introduction, context: payload.data },
+          };
+        case "tag":
+          return {
+            ...state,
+            tag: { ...state.tag, context: payload.data },
+          };
+        case "social":
+          return {
+            ...state,
+            social: { ...state.social, context: payload.data },
+          };
         default:
-          return {
-            ...state,
-            [key]: {
-              ...state[key],
-              context: data,
-            },
-          };
+          return state;
       }
     }
     case "FLASH": {

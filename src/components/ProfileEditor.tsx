@@ -1,4 +1,4 @@
-import type { Profile } from "../profile.type";
+import type { DraggableProfileKey } from "../hooks/editProfileReducer";
 import type { DragEndEvent } from "@dnd-kit/core";
 
 import {
@@ -20,6 +20,17 @@ import ExperienceEditor from "./editor/ExperienceEditor";
 import InPlaceEditor from "./editor/InPlaceEditor";
 import SocialEditor from "./editor/SocialEditor";
 import TagsEditor from "./editor/TagsEditor";
+
+const DRAGGABLE_KEYS: ReadonlySet<string> = new Set<DraggableProfileKey>([
+  "name",
+  "avatar",
+  "tag",
+  "introduction",
+  "social",
+]);
+
+const isDraggableKey = (id: unknown): id is DraggableProfileKey =>
+  typeof id === "string" && DRAGGABLE_KEYS.has(id);
 
 const ProfileEditor = () => {
   const { profile, dispatchProfile } = React.useContext(ProfileContext);
@@ -61,18 +72,19 @@ const ProfileEditor = () => {
     },
   });
   const sensors = useSensors(mouseSensor, touchSensor);
+  const containerWidth = Math.min(vw, 1280);
   const handleDragEnd = (event: DragEndEvent) => {
-    const id = event.active.id as keyof Profile;
+    const { id } = event.active;
 
-    if (!id || !profile[id]) {
+    if (!isDraggableKey(id)) {
       return;
     }
     dispatchProfile({
       type: "POSITION",
       payload: {
         key: id,
-        x: Math.ceil((event.delta.x / vw) * 100),
-        y: Math.ceil(event.delta.y / percent),
+        x: Math.round((event.delta.x / containerWidth) * 100),
+        y: Math.round(event.delta.y / percent),
       },
     });
   };

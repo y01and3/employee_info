@@ -25,7 +25,7 @@ const defaultGetScrollAnimationRanges: GetScrollAnimationRangesFn = (
   speed = 1,
 ) => {
   const totalRevealRange = 1;
-  const baseStaggerAmount = totalRevealRange / totalItems;
+  const baseStaggerAmount = totalRevealRange / Math.max(totalItems, 1);
   const staggerAmount = baseStaggerAmount / speed;
   const itemDuration = staggerAmount * 2;
 

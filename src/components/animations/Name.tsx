@@ -9,22 +9,33 @@ interface NameProps {
 
 const Name = ({ children, className, style }: NameProps) => {
   const [rotatingIndex, setRotatingIndex] = React.useState<number | null>(null);
+  const chars = React.useMemo(() => Array.from(children), [children]);
 
   React.useEffect(() => {
+    if (chars.length === 0) {
+      return;
+    }
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+
     const interval = setInterval(() => {
-      const randomIndex = Math.floor(Math.random() * children.length);
+      const randomIndex = Math.floor(Math.random() * chars.length);
 
       setRotatingIndex(randomIndex);
 
-      setTimeout(() => setRotatingIndex(null), 1000);
+      timeoutId = setTimeout(() => setRotatingIndex(null), 1000);
     }, 5000);
 
-    return () => clearInterval(interval);
-  }, [children]);
+    return () => {
+      clearInterval(interval);
+      if (timeoutId !== undefined) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [chars]);
 
   return (
-    <div className={`name-container ${className}`} style={style}>
-      {children.split("").map((char, index) => (
+    <div className={`name-container ${className ?? ""}`} style={style}>
+      {chars.map((char, index) => (
         <motion.span
           key={char + index}
           animate={rotatingIndex === index ? { rotate: 30 } : { rotate: 0 }}
@@ -34,7 +45,7 @@ const Name = ({ children, className, style }: NameProps) => {
             ease: "easeInOut",
           }}
         >
-          {char}
+          {char === " " ? "\u00A0" : char}
         </motion.span>
       ))}
     </div>

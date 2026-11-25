@@ -3,7 +3,7 @@ import type { Profile } from "../profile.type";
 import { defaultProfile } from "./profileContext";
 
 const applyProfile = (
-  data: Profile,
+  data: Partial<Profile>,
   setProfile: (profile: Profile) => void,
 ) => {
   const newProfile: Profile = {
@@ -16,7 +16,7 @@ const applyProfile = (
       ...data.introduction,
     },
     social: { ...defaultProfile.social, ...data.social },
-    resume: [...defaultProfile.resume, ...data.resume],
+    resume: Array.isArray(data.resume) ? data.resume : defaultProfile.resume,
   };
 
   setProfile(newProfile);

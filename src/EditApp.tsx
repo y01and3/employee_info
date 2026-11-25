@@ -2,7 +2,7 @@ import type { Profile } from "./profile.type";
 
 import { addToast, Button } from "@heroui/react";
 import React from "react";
-import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 import baseUrl from "./api/baseUrl";
 import editProfile from "./api/editProfile";
@@ -14,28 +14,38 @@ import editProfileReducer from "./hooks/editProfileReducer";
 import { defaultProfile, ProfileProvider } from "./hooks/profileContext";
 
 const EditApp = () => {
+  const navigate = useNavigate();
+  const [isSaving, setIsSaving] = React.useState(false);
   const [profile, dispatchProfile] = React.useReducer(
     editProfileReducer,
     defaultProfile,
   );
 
-  const changeProfile = (profile: Profile) =>
-    !baseUrl
-      ? localStorage.setItem("profile", JSON.stringify(profile))
-      : editProfile(profile);
+  const changeProfile = async (nextProfile: Profile) => {
+    if (!baseUrl) {
+      localStorage.setItem("profile", JSON.stringify(nextProfile));
 
-  const setProfile = (profile: Profile) => {
-    dispatchProfile({ type: "FLASH", payload: profile });
+      return;
+    }
+    await editProfile(nextProfile);
   };
+
+  const setProfile = React.useCallback((nextProfile: Profile) => {
+    dispatchProfile({ type: "FLASH", payload: nextProfile });
+  }, []);
 
   React.useEffect(() => {
     if (!baseUrl) {
       const lsProfile = localStorage.getItem("profile");
 
       if (lsProfile) {
-        const parsedProfile = JSON.parse(lsProfile) as Profile;
+        try {
+          const parsedProfile = JSON.parse(lsProfile) as Partial<Profile>;
 
-        applyProfile(parsedProfile, setProfile);
+          applyProfile(parsedProfile, setProfile);
+        } catch {
+          localStorage.removeItem("profile");
+        }
       }
 
       return;
@@ -52,7 +62,44 @@ const EditApp = () => {
           color: "danger",
         });
       });
-  }, []);
+  }, [setProfile]);
+
+  const handleConfirm = async () => {
+    setIsSaving(true);
+    try {
+      await changeProfile(profile);
+      navigate("/");
+    } catch (error) {
+      addToast({
+        title: "Error saving profile",
+        description: String(error),
+        color: "danger",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleReset = async () => {
+    setIsSaving(true);
+    try {
+      await changeProfile(defaultProfile);
+      setProfile(defaultProfile);
+      addToast({
+        title: "Profile reset",
+        description: "Profile has been reset to default.",
+        color: "success",
+      });
+    } catch (error) {
+      addToast({
+        title: "Error resetting profile",
+        description: String(error),
+        color: "danger",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
 
   return (
     <div
@@ -61,28 +108,18 @@ const EditApp = () => {
     >
       <div className="fixed top-0 right-0 w-fit z-50">
         <Button
-          as={Link}
           className="m-5 float-right"
           color="warning"
-          to="/"
-          onPress={() => {
-            changeProfile(profile);
-          }}
+          isDisabled={isSaving}
+          onPress={handleConfirm}
         >
           Confirm Edit
         </Button>
         <Button
           className="m-5 float-right"
           color="danger"
-          onPress={() => {
-            changeProfile(defaultProfile);
-            setProfile(defaultProfile);
-            addToast({
-              title: "Profile reset",
-              description: "Profile has been reset to default.",
-              color: "success",
-            });
-          }}
+          isDisabled={isSaving}
+          onPress={handleReset}
         >
           Back to Default
         </Button>

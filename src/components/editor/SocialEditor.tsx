@@ -7,7 +7,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@heroui/react";
-import { Icon } from "@iconify-icon/react/dist/iconify.mjs";
+import { Icon } from "@iconify-icon/react";
 import React from "react";
 
 interface SocialEditorProps {
@@ -30,7 +30,7 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
           onOpenChange={(open) => setIsOpen(open ? String(social.id) : "")}
         >
           <PopoverTrigger>
-            <Button isIconOnly>
+            <Button isIconOnly aria-label={social.link}>
               <span className="m-auto" role="img">
                 {social.emoji}
               </span>
@@ -50,12 +50,18 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
                   onSubmit={(e) => {
                     e.preventDefault();
                     const formData = new FormData(e.currentTarget);
+                    const emoji = String(formData.get("emoji") ?? "").trim();
+                    const link = String(formData.get("link") ?? "").trim();
+
+                    if (!link) {
+                      return;
+                    }
                     const newSocials = socials.map((s) =>
                       s.id === social.id
                         ? {
                             id: social.id,
-                            emoji: formData.get("emoji") as string,
-                            link: formData.get("link") as string,
+                            emoji,
+                            link,
                           }
                         : s,
                     );
@@ -80,9 +86,22 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
                     type="url"
                     variant="bordered"
                   />
-                  <Button className="w-full mt-2" type="submit" variant="flat">
-                    Confirm
-                  </Button>
+                  <div className="flex gap-2 mt-2">
+                    <Button className="flex-1" type="submit" variant="flat">
+                      Confirm
+                    </Button>
+                    <Button
+                      color="danger"
+                      type="button"
+                      variant="flat"
+                      onPress={() => {
+                        onChange(socials.filter((s) => s.id !== social.id));
+                        setIsOpen("");
+                      }}
+                    >
+                      Delete
+                    </Button>
+                  </div>
                 </form>
               </div>
             )}
@@ -99,7 +118,7 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
         onOpenChange={(open) => setIsOpen(open ? "add" : "")}
       >
         <PopoverTrigger>
-          <Button isIconOnly color="primary">
+          <Button isIconOnly aria-label="Add social link" color="primary">
             <Icon className="m-auto" icon="line-md:plus" />
           </Button>
         </PopoverTrigger>
@@ -117,12 +136,18 @@ const SocialEditor = ({ socials, onChange }: SocialEditorProps) => {
                 onSubmit={(e) => {
                   e.preventDefault();
                   const formData = new FormData(e.currentTarget);
+                  const emoji = String(formData.get("emoji") ?? "").trim();
+                  const link = String(formData.get("link") ?? "").trim();
+
+                  if (!link) {
+                    return;
+                  }
                   const newSocials = [
                     ...socials,
                     {
                       id: Date.now(),
-                      emoji: formData.get("emoji") as string,
-                      link: formData.get("link") as string,
+                      emoji,
+                      link,
                     },
                   ];
 

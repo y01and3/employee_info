@@ -33,6 +33,30 @@ interface ProfileRenderProps {
   profile: Profile;
 }
 
+const getSafeHref = (rawLink: string): string | undefined => {
+  try {
+    const parsed = new URL(rawLink);
+
+    if (
+      parsed.protocol === "http:" ||
+      parsed.protocol === "https:" ||
+      parsed.protocol === "mailto:"
+    ) {
+      return parsed.toString();
+    }
+  } catch {
+    return undefined;
+  }
+
+  return undefined;
+};
+
+const formatDate = (timestamp: number): string => {
+  const date = new Date(timestamp);
+
+  return Number.isNaN(date.getTime()) ? "" : date.toLocaleDateString();
+};
+
 const ProfileRender = ({ profile }: ProfileRenderProps) => {
   const [vw, setVw] = React.useState(window.innerWidth);
   const { widthSize, percent } = React.useMemo(() => {
@@ -140,19 +164,26 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
               minWidth: widthSize === "sm" ? "10vw" : 9 * percent,
             }}
           >
-            {profile.social.context.map((social) => (
-              <Button
-                key={social.id}
-                isIconOnly
-                as={Link}
-                className="social-button"
-                href={social.link}
-              >
-                <span className="m-auto" role="img">
-                  {social.emoji}
-                </span>
-              </Button>
-            ))}
+            {profile.social.context.map((social) => {
+              const safeHref = getSafeHref(social.link);
+
+              return (
+                <Button
+                  key={social.id}
+                  isExternal
+                  isIconOnly
+                  aria-label={social.link}
+                  as={Link}
+                  className="social-button"
+                  href={safeHref ?? "#"}
+                  isDisabled={!safeHref}
+                >
+                  <span className="m-auto" role="img">
+                    {social.emoji}
+                  </span>
+                </Button>
+              );
+            })}
           </div>
         </RenderBox>
       </div>
@@ -165,8 +196,7 @@ const ProfileRender = ({ profile }: ProfileRenderProps) => {
             <div key={experience.id}>
               <h2 className="resume-title">{experience.title}</h2>
               <p className="resume-date">
-                {new Date(experience.start).toLocaleDateString()} -{" "}
-                {new Date(experience.end).toLocaleDateString()}
+                {formatDate(experience.start)} - {formatDate(experience.end)}
               </p>
 
               {experience.description && (

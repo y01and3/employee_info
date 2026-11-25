@@ -26,7 +26,13 @@ const AvatarEditor = ({ avatar, onChange }: AvatarEditorProps) => {
       onOpenChange={(open) => setIsOpen(open)}
     >
       <PopoverTrigger>
-        <Avatar className="avatar" src={avatar} />
+        <button
+          aria-label="Edit avatar"
+          className="cursor-pointer rounded-full bg-transparent p-0 border-0"
+          type="button"
+        >
+          <Avatar className="avatar" src={avatar} />
+        </button>
       </PopoverTrigger>
       <PopoverContent className="w-[240px]">
         {(titleProps) => (
@@ -39,13 +45,18 @@ const AvatarEditor = ({ avatar, onChange }: AvatarEditorProps) => {
               onSubmit={(e) => {
                 e.preventDefault();
                 const formData = new FormData(e.currentTarget);
+                const src = String(formData.get("src") ?? "").trim();
 
-                onChange(formData.get("src") as string);
+                if (!src) {
+                  return;
+                }
+                onChange(src);
                 setIsOpen(false);
                 e.currentTarget.reset();
               }}
             >
               <Input
+                defaultValue={avatar}
                 label="Image Source"
                 name="src"
                 size="sm"
